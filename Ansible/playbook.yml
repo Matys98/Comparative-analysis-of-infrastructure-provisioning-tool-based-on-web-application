@@ -3,7 +3,7 @@
 
 # Ubuntu - Static webapp
 - name: Static webapp
-  hosts: staticwebapp
+  hosts: Instance1
   roles:
     - nodejs
   tags: 
@@ -11,7 +11,7 @@
 
 # Ubuntu - Appo Music Single instance
 - name: Appo Music Single instance
-  hosts: appomusicsingle
+  hosts: Instance1
   roles:
     - rubyonrails
     - nodejs
@@ -21,7 +21,9 @@
 
 # Ubuntu - Appo Music Two instance
 - name: Appo Music Two instance
-  hosts: appomusictwo
+  hosts: 
+    Instance1
+    Instance2
   roles:
     - rubyonrails
     - nodejs
@@ -31,7 +33,7 @@
 
 # Ubuntu - TIQUET Single instance
 - name: TIQUET Single instance
-  hosts: tiquetsingle
+  hosts: Instance1
   roles:
     - nodejs
     - python
@@ -42,7 +44,9 @@
 
 # Ubuntu - TIQUET Two instance
 - name: TIQUET Two instance
-  hosts: tiquettwo
+  hosts: 
+    Instance1
+    Instance2
   roles:
     - nodejs
     - python
@@ -53,10 +57,26 @@
 
 # Ubuntu - TIQUET Three instance
 - name: TIQUET Three instance
-  hosts: tiquetthree
+  hosts: Instance1
   roles:
     - nodejs
+
+  tags: 
+    - TiquetThree
+
+# Ubuntu - TIQUET Three instance
+- name: TIQUET Three Instance 2
+  hosts: Instance2
+  roles:
     - python
+
+  tags: 
+    - TiquetThree
+
+# Ubuntu - TIQUET Three instance
+- name: TIQUET Three Instance 3
+  hosts: Instance3
+  roles:
     - postgresql
 
   tags: 

@@ -1,0 +1,11 @@
+---
+# all hosts are listed here
+
+[Instance1]
+10.0.0.101 ansible_ssh_user=root ansible_sudo_pass='ubuntu'
+
+[Instance2]
+10.0.0.100 ansible_ssh_user=root ansible_sudo_pass='ubuntu'
+
+[Instance3]
+10.0.0.100 ansible_ssh_user=root ansible_sudo_pass='ubuntu'

@@ -1,6 +1,11 @@
 from fabric import Connection, task, Config
 import getpass
-from my_modules import fab_grafana, fab_jenkins, fab_k8s, fab_node, fab_php, fab_python
+from my_modules import fab_git, fab_linux_os, fab_node, fab_python, fab_ruby
+from apple_music_module import apple_music
+from grafana_module import fab_grafana
+from static_page_module import static
+from tiquet_module import tiquet
+
 
 vm_host = 'username@ip_address'
 ssh_path = '/path/to/keyfile/id_rsa'
@@ -27,17 +32,9 @@ def php_deploy(ctx):
    c.run('uname -s')
 
 @task
-def python_deploy(ctx):
-   c.run('uname -s')
-
-@task
-def k8s_deploy(ctx):
-   c.run('uname -s')
-
-@task
 def grafana_deploy(ctx):
    c.run('uname -s')
 
 @task
-def jenkins_deploy(ctx):
-   c.run('uname -s')
+def curl_page_response(ctx):
+   c.run('curl localhost')

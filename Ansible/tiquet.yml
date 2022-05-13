@@ -1,0 +1,53 @@
+---
+# tiquet webpage playbook 
+
+# Ubuntu - TIQUET Single instance
+- name: TIQUET Single instance
+  hosts: Instance1
+  roles:
+    - nodejs
+    - python
+    - postgresql
+  tags: 
+    - TiquetSingle
+
+# Ubuntu - TIQUET Two instance
+- name: TIQUET Two instance 1
+  hosts: Instance1
+  roles:
+    - nodejs
+    - python
+  tags: 
+    - TiquetTwo
+
+# Ubuntu - TIQUET Two instance
+- name: TIQUET Two instance 1
+  hosts: Instance2
+  roles:
+    - postgresql
+  tags: 
+    - TiquetTwo
+
+# Ubuntu - TIQUET Three instance
+- name: TIQUET Three instance
+  hosts: Instance1
+  roles:
+    - nodejs
+  tags: 
+    - TiquetThree
+
+# Ubuntu - TIQUET Three instance
+- name: TIQUET Three Instance 2
+  hosts: Instance2
+  roles:
+    - python
+  tags: 
+    - TiquetThree
+
+# Ubuntu - TIQUET Three instance
+- name: TIQUET Three Instance 3
+  hosts: Instance3
+  roles:
+    - postgresql
+  tags: 
+    - TiquetThree

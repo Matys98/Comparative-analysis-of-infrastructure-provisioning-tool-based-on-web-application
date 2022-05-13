@@ -1,0 +1,9 @@
+---
+# tasks file for roles/postgresql/install
+
+- name: Install {{postgresql_isntall_pack}}
+  apt:
+    name: "{{postgresql_isntall_pack}}"
+    force_apt_get: yes
+  become: yes
+  

@@ -1,0 +1,27 @@
+---
+# appo webpage playbook
+
+# Ubuntu - Appo Music Single instance
+- name: Appo Music Single instance
+  hosts: Instance1
+  roles:
+    - rubyonrails
+    - nodejs
+  tags: 
+    - AppoMusicSingle
+
+# Ubuntu - Appo Music Two instance
+- name: Appo Music Two instance 1
+  hosts: Instance2
+  roles:
+    - nodejs
+  tags: 
+    - AppoMusicTwo
+
+# Ubuntu - Appo Music Two instance
+- name: Appo Music Two instance 2
+  hosts: Instance2
+  roles:
+    - rubyonrails
+  tags: 
+    - AppoMusicTwo

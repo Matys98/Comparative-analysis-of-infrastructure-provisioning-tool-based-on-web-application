@@ -1,2 +1,8 @@
 ---
 # defaults file for git
+
+application_name: default_app
+git_web_address: https://github.com/
+appliaction_repository: Matys98/my-cv.git
+
+

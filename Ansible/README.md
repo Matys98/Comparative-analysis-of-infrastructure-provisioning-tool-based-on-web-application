@@ -13,6 +13,8 @@ $ sudo python get-pip.py
 $ sudo python -m pip install ansible
 ```
 
+# Starting project
+
 ## How to run
 
 ## Aplications

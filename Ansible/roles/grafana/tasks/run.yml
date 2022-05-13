@@ -1,0 +1,9 @@
+---
+# tasks file for grafana/run
+
+- name: "run grafana service"
+  service: 
+    name: grafana-server
+    state: started
+    enabled: yes
+  become: yes

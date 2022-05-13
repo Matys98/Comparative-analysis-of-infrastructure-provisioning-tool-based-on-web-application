@@ -1,0 +1,20 @@
+---
+# tasks file for grafana/install
+
+- name: Add grafana repository
+  apt_repository:
+    repo: "{{grafana_repo}}"
+    state: present
+
+- name: update apt
+  apt:
+    name: "*"
+    state: latest
+
+- name: Install grafana
+  apt:
+    name: grafana
+    update_cache: yes
+    force_apt_get: yes
+    force: yes
+  become: yes

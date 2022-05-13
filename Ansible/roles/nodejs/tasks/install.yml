@@ -1,0 +1,21 @@
+---
+# tasks file for nodejs/install
+
+- name: Install nodejs {{nodejs_version}}
+  apt:
+    name: nodejs
+    update_cache: yes
+    force_apt_get: yes
+    force: yes
+  become: yes
+
+- name: npm install pm2
+  npm: 
+    name: pm2
+    global: yes
+  become: yes
+
+- name: update apt
+  apt:
+    name: "*"
+    state: latest

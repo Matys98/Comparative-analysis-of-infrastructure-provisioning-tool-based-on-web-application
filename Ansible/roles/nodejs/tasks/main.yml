@@ -1,2 +1,8 @@
 ---
 # tasks file for nodejs
+
+- name: "Install nodejs"
+  import_tasks: "install.yml"
+
+- name: "Run nodejs server"
+  import_tasks: "run.yml"

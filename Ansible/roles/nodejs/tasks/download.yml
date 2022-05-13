@@ -1,0 +1,13 @@
+---
+# tasks file for nodejs/download
+
+- name: download nodejs setup
+  uri:
+    url: "{{nodejs_version_url}}"
+    dest: "{{nodejs_setup_path}}"
+    validate_certs: no
+  become: yes
+
+- name: run nodejs setup
+  shell: sudo -E bash {{nodejs_setup_path}}
+  become: yes

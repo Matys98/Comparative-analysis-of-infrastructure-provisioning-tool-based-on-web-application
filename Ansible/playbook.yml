@@ -1,0 +1,63 @@
+---
+# main playbook 
+
+# Ubuntu - Static webapp
+- name: Static webapp
+  hosts: staticwebapp
+  roles:
+    - nodejs
+  tags: 
+    - StaticWebApp
+
+# Ubuntu - Appo Music Single instance
+- name: Appo Music Single instance
+  hosts: appomusicsingle
+  roles:
+    - rubyonrails
+    - nodejs
+    - 
+  tags: 
+    - AppoMusicSingle
+
+# Ubuntu - Appo Music Two instance
+- name: Appo Music Two instance
+  hosts: appomusictwo
+  roles:
+    - rubyonrails
+    - nodejs
+
+  tags: 
+    - AppoMusicTwo
+
+# Ubuntu - TIQUET Single instance
+- name: TIQUET Single instance
+  hosts: tiquetsingle
+  roles:
+    - nodejs
+    - python
+    - postgresql
+
+  tags: 
+    - TiquetSingle
+
+# Ubuntu - TIQUET Two instance
+- name: TIQUET Two instance
+  hosts: tiquettwo
+  roles:
+    - nodejs
+    - python
+    - postgresql
+
+  tags: 
+    - TiquetTwo
+
+# Ubuntu - TIQUET Three instance
+- name: TIQUET Three instance
+  hosts: tiquetthree
+  roles:
+    - nodejs
+    - python
+    - postgresql
+
+  tags: 
+    - TiquetThree

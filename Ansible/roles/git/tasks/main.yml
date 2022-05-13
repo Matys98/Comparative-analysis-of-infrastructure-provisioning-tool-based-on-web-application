@@ -1,2 +1,8 @@
 ---
-# tasks file for git
+
+- name: pull git repo with {{application_name}}
+  git:
+    repo: "{{git_web_address}}{{appliaction_repository}}"
+    dest: "{{app_dest_directory}}"
+    force: yes
+  become: yes

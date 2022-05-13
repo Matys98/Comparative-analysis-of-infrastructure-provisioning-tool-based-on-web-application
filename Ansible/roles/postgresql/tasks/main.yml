@@ -1,2 +1,8 @@
 ---
 # tasks file for postgresql
+
+- name: "Install postgresql"
+  import_tasks: "install.yml"
+
+- name: "Run postgresql"
+  import_tasks: "run_install.yml"

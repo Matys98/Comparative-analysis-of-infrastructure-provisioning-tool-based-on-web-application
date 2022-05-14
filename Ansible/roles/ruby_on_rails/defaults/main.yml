@@ -1,2 +1,9 @@
 ---
 # defaults file for ruby_on_rails
+
+ruby_on_rails_version: v0.6.1
+
+home_path: /home/ubuntu
+ruby_url: https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz
+ruby_package_path: /ruby-install-0.6.1.tar.gz
+ruby_path: /ruby-install-0.6.1

@@ -1,2 +1,5 @@
 ---
 # tasks file for ruby_on_rails
+
+- name: "Install ruby on rails"
+  import_tasks: "install.yml"

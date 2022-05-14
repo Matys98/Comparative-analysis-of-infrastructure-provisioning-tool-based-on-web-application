@@ -1,0 +1,51 @@
+---
+# tasks file for ruby_on_rails
+
+- name: update apt
+  apt:
+    name: "*"
+    state: latest
+
+- name: Install Ruby dependencies {{ruby_on_rails_version}}
+  apt: "{{ item }}"
+    name: 
+    update_cache: yes
+    force_apt_get: yes
+    force: yes
+  with_items:
+    - gcc
+    - autoconf
+    - bison
+    - build-essential
+    - libssl-dev
+    - libyaml-dev
+    - libreadline6-dev
+    - zlib1g-dev
+    - libncurses5-dev
+    - libffi-dev
+    - libgdbm3
+    - libgdbm-dev
+    - sqlite3
+    - libsqlite3-dev
+    - nodejs 
+  become: yes
+
+- name: Download ruby-install
+  become: no
+  get_url:
+    url: "{{ ruby_url }}"
+    dest: "{{ ruby_package_path }}"
+
+- name: Extract ruby-install tarball                                                                                                                                                
+  become: no
+  unarchive:
+    src: "{{ home_path }}""{{ ruby_package_path }}"
+    dest: "{{ home_path }}"
+    creates: "{{ home_path }}""{{ ruby_path }}"
+    remote_src: yes
+
+- name: Install ruby-install
+  make:
+    chdir: "{{ home_path }}""{{ ruby_path }}"
+    target: install
+

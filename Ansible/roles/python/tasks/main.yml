@@ -1,2 +1,5 @@
 ---
 # tasks file for python
+
+- name: "Install python"
+  import_tasks: "install.yml"

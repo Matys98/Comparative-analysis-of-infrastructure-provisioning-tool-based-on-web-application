@@ -1,0 +1,10 @@
+---
+# tasks file for python
+
+- name: Install python {{python_version}}
+  apt:
+    name: python
+    update_cache: yes
+    force_apt_get: yes
+    force: yes
+  become: yes

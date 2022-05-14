@@ -4,8 +4,5 @@ import getpass
 def apt_update():
     print()
 
-def pip_update():
-    print()
-
-def npm_update():
+def apt_upgrade():
     print()

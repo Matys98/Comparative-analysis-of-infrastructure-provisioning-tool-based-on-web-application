@@ -4,8 +4,8 @@ import getpass
 def clone_repo():
     print("")
 
-def config_app():
+def config_frontend():
     print("")
 
-def run_static():
+def run_apple_music_frontend():
     print("")

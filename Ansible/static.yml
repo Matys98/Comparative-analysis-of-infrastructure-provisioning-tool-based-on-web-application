@@ -1,0 +1,10 @@
+---
+# static webpage playbook 
+
+# Ubuntu - Static webapp
+- name: Static webapp
+  hosts: Instance1
+  roles:
+    - nodejs
+  tags: 
+    - StaticWebApp

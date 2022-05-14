@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
         instance_1.vm.box = "ubuntu/trusty64"
         instance_1.vm.hostname = "Instance_1"
         instance_1.vm.network "private_network", ip: "172.30.1.11"
+        serv1.vm.network "forwarded_port", guest: 80, host: 8080
     end
 
     #   Instance nr 2 - Only two and three instances
@@ -15,6 +16,7 @@ Vagrant.configure("2") do |config|
         serv2.vm.box = "ubuntu/trusty64"
         serv2.vm.hostname = "Instance_1"
         serv2.vm.network "private_network", ip: "172.30.1.12"
+        serv2.vm.network "forwarded_port", guest: 80, host: 8080
     end
 
     #   Instance nr 3 - Only three instances
@@ -22,6 +24,7 @@ Vagrant.configure("2") do |config|
         serv3.vm.box = "ubuntu/trusty64"
         serv3.vm.hostname = "Instance_1"
         serv3.vm.network "private_network", ip: "172.30.1.13"
+        serv3.vm.network "forwarded_port", guest: 80, host: 8080
     end
 
     #   insert pub_key into the host

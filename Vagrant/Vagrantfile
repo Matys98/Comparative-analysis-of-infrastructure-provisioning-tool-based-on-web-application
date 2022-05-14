@@ -1,0 +1,40 @@
+# encoding: utf-8
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    # Instance nr 1 - All case
+    config.vm.define "Instance_1" do |instance_1|
+        instance_1.vm.box = "ubuntu/trusty64"
+        instance_1.vm.hostname = "Instance_1"
+        instance_1.vm.network "private_network", ip: "172.30.1.11"
+    end
+
+    #   Instance nr 2 - Only two and three instances
+    config.vm.define "Instance_2" do |instance_2|
+        serv2.vm.box = "ubuntu/trusty64"
+        serv2.vm.hostname = "Instance_1"
+        serv2.vm.network "private_network", ip: "172.30.1.12"
+    end
+
+    #   Instance nr 3 - Only three instances
+    config.vm.define "Instance_3" do |instance_3|
+        serv3.vm.box = "ubuntu/trusty64"
+        serv3.vm.hostname = "Instance_1"
+        serv3.vm.network "private_network", ip: "172.30.1.13"
+    end
+
+    #   insert pub_key into the host
+    config.ssh.forward_agent = true
+    config.ssh.insert_key = false
+
+    config.ssh.private_key_path =  ["~/.vagrant.d/insecure_private_key","~/.ssh/id_rsa"]
+    
+    config.vm.provision :shell, privileged: false do |s|
+        ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
+        s.inline = <<-SHELL
+            touch $HOME/.ssh/authorized_keys
+            echo #{ssh_pub_key} >> $HOME/.ssh/authorized_keys
+        SHELL
+    end
+end

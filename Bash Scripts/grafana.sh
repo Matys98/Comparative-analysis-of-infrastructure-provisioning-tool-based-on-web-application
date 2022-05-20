@@ -1,4 +1,7 @@
 #!/bin/bash
+#   Commands needed
+sudo apt-get install curl -y
+
 ##################################
 #   All commands to deploy grafana
 
@@ -31,4 +34,20 @@ sudo systemctl start influxdb
 #####################################
 #   All commands to configure grafana
 
-#
+# 1. Adding database
+curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE inverter_power"
+
+# 2. Copy data sources config
+sudo cp ./Grafana/datasources/sample.yaml /etc/grafana/provisioning/datasources
+
+# 3. Copy dashbords config
+sudo cp ./Grafana/dashbords/sample.yaml /etc/grafana/provisioning/dashboards
+
+# 3. Copy dashbord
+sudo mkdir /var/lib/grafana/dashboards
+sudo cp ./Grafana/solar-system.json /var/lib/grafana/dashboards
+
+# 5. Load config
+sudo systemctl restart grafana-server
+
+# 2 days

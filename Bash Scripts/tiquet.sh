@@ -51,7 +51,9 @@ local   all             all                                     trust
 EOF
 "
 
-psql -U postgres -c "CREATE DATABASE mytemplate1"
+sudo systemctl restart postgresql
+
+psql -U postgres -c "CREATE DATABASE tiquet"
 
 ##################################
 #   All commands to deploy tiquet frontend
@@ -103,7 +105,17 @@ source env/bin/activate
 # 3. Install packages
 echo requests==2.25.1 >> ./requirements.txt
 pip install -r ./requirements.txt
-sed -i 's/os.environ.*/"postgresql:postgres:postgres@localhost:5432tiquet"/g' ./app/config.py
+
+sudo bash -c "cat > ./app/config.py << EOF
+import os
+
+DEBUG = True
+CORS_HEADERS = 'Content-Type'
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/tiquet'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+"
+
+# sed -i 's/os.environ.*/"postgresql:postgres:postgres@localhost:5432tiquet"/g' ./app/config.py
 
 # 4. Run application
 pm2 start run.py --interpreter python3 --name backend

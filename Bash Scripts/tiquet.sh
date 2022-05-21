@@ -20,7 +20,9 @@ cd app
 git clone https://github.com/FLiotta/Tiquet.git
 
 # 5. Change dir
-cd Tiquet
+cd 
+
+sed -i 's/cffi==1.14.0/cffi==1.14.1/g' ./app/Tiquet/server/requirements.txt
 
 ##################################
 #   All commands to deploy tiquet database
@@ -29,10 +31,14 @@ sudo apt-get install postgresql-contrib -y
 
 ##################################
 #   All commands to deploy tiquet frontend
-cd client
+sudo apt-get install nodejs -y
+sudo apt-get install npm -y
+
+cd ./app/Tiquet/client
 
 # 2. Instal npm
 npm install
+npm audit fix
 
 # 3. Instal serve
 sudo npm install serve -g
@@ -45,25 +51,29 @@ pm2 update
 npm run bundle
 
 # 6. Run app
-pm2 start npm --name web-app --run start
+pm2 start --name frontend npm -- start
 
 # 7. Return to main dir
-cd ..
+cd 
 
 ##################################
 #   All commands to deploy tiquet backend - flask
 # 0. Install Python
 sudo add-apt-repository ppa:deadsnakes/ppa -y
 sudo apt-get install python3.8 -y
-sudo apt-get install pip -y
+sudo apt-get install python3-pip -y
 
-# 1. Change dir to server
-cd server
+# 1. Fix python packages errors
+sudo apt install libpq-dev
+sudo apt install libffi-dev
 
+# 2. Change dir to server
+cd ./app/Tiquet/server
+
+# 3. Install packages
 pip install -r ./requirements.txt
 
-source env/scripts/activate
+# 4. Run application
+pm2 start run.py --interpreter python3 --name backend
 
-python run.py &
-
-cd ..
+cd 

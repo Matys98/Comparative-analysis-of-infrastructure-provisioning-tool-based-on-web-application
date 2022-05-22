@@ -114,10 +114,10 @@ CORS_HEADERS = 'Content-Type'
 SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/tiquet'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 "
+# 4. Configure DB
+python3 create_tables.py
 
-# sed -i 's/os.environ.*/"postgresql:postgres:postgres@localhost:5432tiquet"/g' ./app/config.py
-
-# 4. Run application
+# 5. Run application
 pm2 start run.py --interpreter python3 --name backend
 
 deactivate

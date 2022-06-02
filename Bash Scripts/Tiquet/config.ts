@@ -6,7 +6,7 @@ interface IOAuth {
 
 export const OAUTH_GITHUB: IOAuth = {
     ENABLED: true,
-    CLIENT_ID: "",
+    CLIENT_ID: "54e24d68a1ecc051a70a",
     STRATEGY: "GITHUB",
 };
 

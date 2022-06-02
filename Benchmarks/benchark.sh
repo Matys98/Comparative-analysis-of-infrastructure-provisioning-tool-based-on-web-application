@@ -22,11 +22,19 @@ do
     (echo "%CPU %MEM ARGS $(date)" && ps -e -o pcpu,pmem,args --sort=pcpu | cut -d" " -f1-5 | tail) >> ps.log; sleep 5; 
 done
 
-cpu=$(top -bn1 | awk '/^%Cpu/ {printf "%d%s",$2,"%"}')
-mem=$(free | awk '/^Mem/ {printf "%d%s",$3/$2*100,"%"}')
-temp=$(vcgencmd measure_temp)
+iteration = 0
+while 
+do  
+    ((iteration++))
+    time_with_ms=$(date +"%T.%3N")
+    cpu=$(top -bn1 | awk '/^%Cpu/ {printf "%d%s",$2,"%"}')
+    mem=$(free | awk '/^Mem/ {printf "%d%s",$3/$2*100,"%"}')
 
-echo "cpu=$cpu   mem=$mem   $temp"
+    if [ $iteration == 1 ]
+        echo "ID;Time;CPU %;MEM %"
+    fi
+    echo "ID=$iteration time=$time_with_ms cpu=$cpu  mem=$mem"
+done
 
 
 # Network

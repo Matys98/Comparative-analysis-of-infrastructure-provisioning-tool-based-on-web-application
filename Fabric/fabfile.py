@@ -1,16 +1,20 @@
-from fabric import Connection, task, Config
+from fabric import Connection, task, Config, SerialGroup
 import getpass
-from my_modules import fab_git, fab_linux_os, fab_node, fab_python, fab_ruby
-from apple_music_module import apple_music
-from grafana_module import fab_grafana
-from static_page_module import static
+from grafana_module import *
+from static_page_module import *
 from tiquet_module import tiquet
 
+repo_name = ''
+repo_dir = ''
+app_name = ''
 
-vm_host = 'username@ip_address'
+vm_host1 = 'username@ip_address'
+vm_host2 = 'username@ip_address'
+vm_host3 = 'username@ip_address'
+hosts = [vm_host1, vm_host2, vm_host3]
 ssh_path = '/path/to/keyfile/id_rsa'
 
-c = Connection(host=vm_host,
+c = Connection(host=vm_host1,
               connect_kwargs={"key_filename": ssh_path})
  
 def get_password(connection):
@@ -19,22 +23,47 @@ def get_password(connection):
    config = Config(overrides={'sudo': {'password': sudo_pass}})
    connection.config = config
 
-@task
-def ansible_deploy(ctx):
-   c.run('uname -s')
 
 @task
-def node_deploy(ctx):
-   c.run('uname -s')
+def static_deploy_to_one_instance(c):
+   print(" Deploy static app to instance: " + vm_host1)
+   repo_url = 'https://github.com/Matys98/my-cv.git'
+   repo_dir = 'my-cv/cv'
+   app_name = 'web-app'
+   result = ""
+   instal_apps(c)
+   clone_repo(c, repo_url)
+   config_node(c, repo_dir)
+   run_app(c, app_name)
+   result = c.run('echo complite')
+   print(result)
 
 @task
-def php_deploy(ctx):
-   c.run('uname -s')
+def static_deploy_to_many_instances(c):
+   print(" Deploy static app to instance: " + str(hosts))
+   repo_url = 'https://github.com/Matys98/my-cv.git'
+   repo_dir = 'my-cv/cv'
+   app_name = 'web-app'
+   result = ['']
+   i = 0
+   for c in SerialGroup(hosts):
+      instal_apps(c)
+      clone_repo(c, repo_url)
+      config_node(c, repo_dir)
+      run_app(c, str(app_name + i))
+      result.append(c.run('echo complite'))
+      i=+1
+   print(result)
 
 @task
-def grafana_deploy(ctx):
-   c.run('uname -s')
+def grafana_deploy_to_one_instance(c):
+   print(" Deploy solar panel app to instance: " + vm_host1)
+   instal_apps(c)
+   download_influxdb(c, db_name)
+   copy_config_files(c)
+   configure_solar(c)
+
 
 @task
-def curl_page_response(ctx):
-   c.run('curl localhost')
+def tiquet_deploy(c):
+   c.run('uname -s')

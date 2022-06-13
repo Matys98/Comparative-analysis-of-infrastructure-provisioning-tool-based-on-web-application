@@ -1,20 +1,14 @@
-# Fabric
-Fabric is a high level Python (2.7, 3.4+) library designed to execute shell commands remotely over SSH, yielding useful Python objects in return:
-
-## Instalation
+# Bash scripts
 
 ## How to run
+touch test.sh
+chmod u+x test.sh
+./test.sh
 
 ## Aplications
+list of apps posible to deploy
+### static web app
 
-### PHP
-
-### Node.js 
-
-### Python
-
-### Jenkins
+### tiquet
 
 ### Grafana
-
-### Somthin else?

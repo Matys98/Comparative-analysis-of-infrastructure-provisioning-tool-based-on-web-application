@@ -1,0 +1,27 @@
+---
+# appo webpage playbook
+
+# Ubuntu - Grafana Single instance
+- name: Grafana Single instance
+  hosts: Instance1
+  roles:
+    - rubyonrails
+    - nodejs
+  tags: 
+    - GrafanaSingle
+
+# Ubuntu - Grafana Two instance
+- name: Grafana Two instance 1
+  hosts: Instance2
+  roles:
+    - nodejs
+  tags: 
+    - GrafanaTwo
+
+# Ubuntu - Grafana Two instance
+- name: Grafana Two instance 2
+  hosts: Instance2
+  roles:
+    - rubyonrails
+  tags: 
+    - GrafanaTwo

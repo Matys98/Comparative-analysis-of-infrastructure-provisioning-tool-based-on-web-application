@@ -5,6 +5,14 @@
 - name: Static webapp
   hosts: Instance1
   roles:
+    - git
     - nodejs
+    - run_static_web_app
   tags: 
     - StaticWebApp
+  vars:
+    instance_host: matys
+    application_name: static web app
+    git_web_address: https://github.com/
+    appliaction_repository: Matys98/my-cv.git
+    app_dest_directory: /home/"{{instance_host}}"

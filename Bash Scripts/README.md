@@ -8,7 +8,10 @@ chmod u+x test.sh
 ## Aplications
 list of apps posible to deploy
 ### static web app
+./staticwebapp.sh
 
 ### tiquet
+./tiquet.sh
 
 ### Grafana
+./grafana.sh

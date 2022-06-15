@@ -28,7 +28,7 @@ sed -i 's/cffi==1.14.0/cffi==1.14.1/g' ./app/Tiquet/server/requirements.txt
 ##################################
 #   All commands to deploy tiquet database
 curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
-echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee  /etc/apt/sources.list.d/pgdg.list
 
 # sudo apt-get update
 

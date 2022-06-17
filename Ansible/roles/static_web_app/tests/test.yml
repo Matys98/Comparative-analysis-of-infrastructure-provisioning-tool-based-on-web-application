@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - tiquet
+    - roles/static_web_app

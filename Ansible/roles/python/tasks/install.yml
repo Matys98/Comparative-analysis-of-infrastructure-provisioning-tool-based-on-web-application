@@ -1,9 +1,50 @@
 ---
 # tasks file for python
 
-- name: Install python {{python_version}}
+- name: Download repo
+  apt_repository:
+    name: ppa:deadsnakes/ppa
+    state: present
+    # update_cache: yes
+    # force_apt_get: yes
+    # force: yes
+  become: yes
+
+- name: Install python3.8
   apt:
-    name: python
+    name: python3.8
+    update_cache: yes
+    force_apt_get: yes
+    force: yes
+  become: yes
+
+- name: Install python3-pip
+  apt:
+    name: python3-pip
+    update_cache: yes
+    force_apt_get: yes
+    force: yes
+  become: yes
+
+- name: Install python3-virtualenv
+  apt:
+    name: python3-virtualenv
+    update_cache: yes
+    force_apt_get: yes
+    force: yes
+  become: 
+  
+- name: Install libffi-dev
+  apt:
+    name: libffi-dev
+    update_cache: yes
+    force_apt_get: yes
+    force: yes
+  become: yes
+
+- name: Install libpq-dev
+  apt:
+    name: libpq-dev
     update_cache: yes
     force_apt_get: yes
     force: yes

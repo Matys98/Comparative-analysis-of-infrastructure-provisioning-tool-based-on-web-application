@@ -4,8 +4,8 @@
 - name: "Install grafana"
   import_tasks: "install.yml"
 
-# - name: "Configure grafana server"
-#   import_tasks: "conf.yml"
-
 - name: "Run grafana server"
   import_tasks: "run.yml"
+
+- name: "Configure grafana server"
+  import_tasks: "config.yml"

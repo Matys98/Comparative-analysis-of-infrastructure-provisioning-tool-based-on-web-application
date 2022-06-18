@@ -1,2 +1,8 @@
 ---
 # tasks file for roles/static_web_app
+
+- name: "Install nodejs"
+  import_tasks: "config.yml"
+
+- name: "Run nodejs server"
+  import_tasks: "run.yml"

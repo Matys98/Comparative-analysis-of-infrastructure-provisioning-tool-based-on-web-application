@@ -2,3 +2,10 @@
 # defaults file for grafana
 
 grafana_repo: deb https://packages.grafana.com/oss/deb stable main
+database_name: inverter_power
+
+datasorce_path: datasources/sample.yaml
+dashbords_path: dashbords/sample.yaml
+grafana_path: /etc/grafana/provisioning
+solar_system_dashbord_path: solar-system.json
+grafana_dashboard_dest_dir: /var/lib/grafana/dashboards

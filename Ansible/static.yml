@@ -5,8 +5,8 @@
 - name: Static webapp
   hosts: Instance1
   roles:
-    - git
     - nodejs
+    - git
     - run_static_web_app
   tags: 
     - StaticWebApp

@@ -1,0 +1,30 @@
+---
+# tasks file for grafana/config
+
+- name: Creating data base by post method
+  shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{database_name}}"
+
+- name: Copy data sources config
+  template:
+    src: "{{datasorce_path}}"
+    dest: "{{grafana_path}}"/datasources
+  become: yes
+
+- name: Copy dashbords config
+  template:
+    src: "{{dashbords_path}}"
+    dest: "{{grafana_path}}"/dashboards
+  become: yes
+
+- name: Copy dashbord
+  template:
+    src: "{{solar_system_dashbord_path}}"
+    dest: "{{grafana_dashboard_dest_dir}}"
+  become: yes
+
+- name: Reload grafana
+  service: 
+    name: grafana-server
+    state: restarted
+    enabled: yes
+  become: yes

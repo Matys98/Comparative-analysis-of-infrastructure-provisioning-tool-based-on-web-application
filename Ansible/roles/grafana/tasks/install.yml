@@ -1,15 +1,21 @@
 ---
 # tasks file for grafana/install
 
+- name: downl
+  shell: wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+  become: yes
+
 - name: Add grafana repository
   apt_repository:
     repo: "{{grafana_repo}}"
     state: present
+  become: yes
 
 - name: update apt
   apt:
     name: "*"
     state: latest
+  become: yes
 
 - name: Install grafana
   apt:

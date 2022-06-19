@@ -5,8 +5,8 @@
 - name: Grafana Single instance
   hosts: Instance1
   roles:
-    - rubyonrails
-    - nodejs
+    - influxdb
+    - grafana
   tags: 
     - GrafanaSingle
 

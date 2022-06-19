@@ -16,3 +16,7 @@
     name: postgresql
     state: restarted
   become: yes
+
+- name: Creating database from psql console
+  shell: psql -U postgres -c "CREATE DATABASE tiquet"
+  become: yes

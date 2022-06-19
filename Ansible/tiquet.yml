@@ -8,8 +8,16 @@
     - nodejs
     - python
     - postgresql
+    - tiquet-frontend
+    - tiquet-backend
   tags: 
     - TiquetSingle
+  vars:
+    instance_host: matys
+    application_name: static web app
+    git_web_address: https://github.com/
+    appliaction_repository: Matys98/my-cv.git
+    app_dest_directory: /home/"{{instance_host}}"
 
 # Ubuntu - TIQUET Two instance
 - name: TIQUET Two instance 1

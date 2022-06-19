@@ -16,17 +16,34 @@ $ sudo python -m pip install ansible
 # Starting project
 
 ## How to run
+Example how to run
+
+```console
+foo@bar:~$ ansible-playbook -i hosts playbook.yml
+```
+
+Example how to run with tags
+
+```console
+foo@bar:~$ ansible-playbook -i hosts playbook.yml --tags "foo"
+```
 
 ## Aplications
+list of apps posible to deploy
 
-### PHP
+### Static web app - My CV
+Benchmark for Master degree project - Comparative analysis of infrastructure provisioning tool based on web application.
 
-### Node.js 
+[My CV App](https://github.com/Matys98/my-cv)
 
-### Python
+### Tiquet
+Tiquet is an open source project management tool focused on the kanban methodology.
 
-### Jenkins
+[Tiquet App](https://github.com/FLiotta/Tiquet)
 
-### Grafana
+### Grafana - solar system
+You can monitor the energy flow of the solar pv system.
 
-### Somthin else?
+[Solar System Dashboard](https://grafana.com/grafana/dashboards/13295)
+
+[Grafana](https://grafana.com/)

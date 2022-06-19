@@ -6,15 +6,21 @@ Fabric is a high level Python (2.7, 3.4+) library designed to execute shell comm
 ## How to run
 
 ## Aplications
+list of apps posible to deploy
 
-### PHP
+### Static web app - My CV
+Benchmark for Master degree project - Comparative analysis of infrastructure provisioning tool based on web application.
 
-### Node.js 
+[My CV App](https://github.com/Matys98/my-cv)
 
-### Python
+### Tiquet
+Tiquet is an open source project management tool focused on the kanban methodology.
 
-### Jenkins
+[Tiquet App](https://github.com/FLiotta/Tiquet)
 
-### Grafana
+### Grafana - solar system
+You can monitor the energy flow of the solar pv system.
 
-### Somthin else?
+[Solar System Dashboard](https://grafana.com/grafana/dashboards/13295)
+
+[Grafana](https://grafana.com/)

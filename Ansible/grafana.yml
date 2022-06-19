@@ -9,6 +9,12 @@
     - grafana
   tags: 
     - GrafanaSingle
+  vars:
+    instance_host: matys
+    application_name: static web app
+    git_web_address: https://github.com/
+    appliaction_repository: Matys98/my-cv.git
+    app_dest_directory: /home/"{{instance_host}}"
 
 # Ubuntu - Grafana Two instance
 - name: Grafana Two instance 1

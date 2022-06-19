@@ -9,7 +9,42 @@
     - git
     - run_static_web_app
   tags: 
-    - StaticWebApp
+    - StaticWebAppOneInstance
+    - StaticWebAppTwoInstance
+    - StaticWebAppThreeInstance
+  vars:
+    instance_host: matys
+    application_name: static web app
+    git_web_address: https://github.com/
+    appliaction_repository: Matys98/my-cv.git
+    app_dest_directory: /home/"{{instance_host}}"
+
+# Ubuntu - Static webapp
+- name: Static webapp
+  hosts: Instance2
+  roles:
+    - nodejs
+    - git
+    - run_static_web_app
+  tags: 
+    - StaticWebAppTwoInstance
+    - StaticWebAppThreeInstance
+  vars:
+    instance_host: matys
+    application_name: static web app
+    git_web_address: https://github.com/
+    appliaction_repository: Matys98/my-cv.git
+    app_dest_directory: /home/"{{instance_host}}"
+
+# Ubuntu - Static webapp
+- name: Static webapp
+  hosts: Instance3
+  roles:
+    - nodejs
+    - git
+    - run_static_web_app
+  tags: 
+    -StaticWebAppThreeInstance
   vars:
     instance_host: matys
     application_name: static web app

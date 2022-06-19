@@ -11,7 +11,6 @@
   args:
     chdir: "{{app_dest_dir}}"
 
-
 - name: npm install serve
   npm: 
     name: serve

@@ -1,2 +1,14 @@
 ---
 # tasks file for roles/tiquet
+
+- name: Install curl
+  apt:
+    name: curl
+    force_apt_get: yes
+  become: yes
+
+- name: Install software-properties-common
+  apt:
+    name: software-properties-common
+    force_apt_get: yes
+  become: yes

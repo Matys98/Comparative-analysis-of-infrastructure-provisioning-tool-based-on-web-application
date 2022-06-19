@@ -1,0 +1,14 @@
+---
+# tasks file for tiquet-backend/run
+
+- name: Create database tables
+  shell: python3 create_tables.py
+  become: yes
+
+- name: run virtual env
+  shell: pm2 start run.py --interpreter python3 --name backend
+  become: yes
+
+- name: logout of virtual env
+  shell: deactivate
+  become: yes

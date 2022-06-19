@@ -1,2 +1,12 @@
 ---
 # tasks file for tiquet-backend
+
+# Install is in Python role
+# - name: "Install nodejs and npm"
+#   import_tasks: "install.yml"
+
+- name: "Configure python server"
+  import_tasks: "config.yml"
+
+- name: "Run backend"
+  import_tasks: "run.yml"

@@ -1,0 +1,24 @@
+---
+# tasks file for tiquet-backend/config
+
+- name: Enable virtual env
+  shell: virtualenv env
+  become: yes
+
+- name: run virtual env
+  shell: source env/bin/activate
+  become: yes
+
+- name: run virtual env
+  shell: echo requests==2.25.1 >> "{{requirments_path}}"
+  become: yes
+  
+- name: Install specified python requirements
+  pip:
+    requirements: "{{requirments_path}}"
+
+- name: copy config.py file
+  template:
+    src: config.py
+    dest: /app/config.py
+  become: yes

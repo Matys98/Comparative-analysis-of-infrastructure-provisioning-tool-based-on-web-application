@@ -1,10 +1,11 @@
 # Bash scripts
 
 ## How to run
+```shell
 touch test.sh
 chmod u+x test.sh
 ./test.sh
-
+```
 ## Aplications
 list of apps posible to deploy
 
@@ -23,4 +24,4 @@ You can monitor the energy flow of the solar pv system.
 
 [Solar System Dashboard](https://grafana.com/grafana/dashboards/13295)
 
-[Grafana](https://grafana.com/)
+[Grafana](https://grafana.com/) 

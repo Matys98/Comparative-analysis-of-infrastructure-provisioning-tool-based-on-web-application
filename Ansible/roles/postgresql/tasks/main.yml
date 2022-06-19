@@ -6,3 +6,8 @@
 
 - name: "Run postgresql"
   import_tasks: "run_install.yml"
+
+- name: update apt
+  apt:
+    name: "*"
+    state: latest

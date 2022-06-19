@@ -1,0 +1,30 @@
+---
+# tasks file for static_web_app/config
+
+- name: npm install package
+  shell: npm isntall
+  args:
+    chdir: "{{app_dest_dir}}"
+
+- name: npm install package
+  shell: npm audit fix
+  args:
+    chdir: "{{app_dest_dir}}"
+
+
+- name: npm install serve
+  npm: 
+    name: serve
+    global: yes
+  become: yes
+
+- name: npm install pm2
+  npm: 
+    name: pm2
+    global: yes
+  become: yes
+
+- name: update apt
+  apt:
+    name: "*"
+    state: latest

@@ -1,2 +1,11 @@
 ---
 # tasks file for tiquet-frontend
+
+- name: "Install nodejs and npm"
+  import_tasks: "install.yml"
+
+- name: "Configure nodejs server"
+  import_tasks: "config.yml"
+
+- name: "Run frontend"
+  import_tasks: "run.yml"

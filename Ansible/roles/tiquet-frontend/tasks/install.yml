@@ -1,0 +1,19 @@
+---
+# tasks file for tiquet-frontend/install
+
+- name: Install nodejs
+  apt:
+    name: nodejs
+    force_apt_get: yes
+  become: yes
+
+- name: Install npm
+  apt:
+    name: npm
+    force_apt_get: yes
+  become: yes
+
+- name: update apt
+  apt:
+    name: "*"
+    state: latest

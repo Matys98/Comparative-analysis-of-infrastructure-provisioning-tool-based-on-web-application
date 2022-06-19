@@ -1,0 +1,13 @@
+---
+# tasks file for static_web_app/config
+
+- name: npm build app
+  shell: npm run bundle
+  args:
+    chdir: "{{app_dest_dir}}"
+
+
+- name: pm2 run app
+  shell: pm2 start --name frontend npm -- start
+  args:
+    chdir: "{{app_dest_dir}}"

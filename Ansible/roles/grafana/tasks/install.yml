@@ -1,7 +1,15 @@
 ---
 # tasks file for grafana/install
 
-- name: downl
+- name: Install curl
+  apt:
+    name: curl
+    update_cache: yes
+    force_apt_get: yes
+    force: yes
+  become: yes
+
+- name: Download packages
   shell: wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
   become: yes
 

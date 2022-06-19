@@ -1,0 +1,16 @@
+---
+# tasks file for influxdb/install
+
+- name: update apt
+  apt:
+    name: "*"
+    state: latest
+  become: yes
+
+- name: Install grafana
+  apt:
+    name: influxdb
+    update_cache: yes
+    force_apt_get: yes
+    force: yes
+  become: yes

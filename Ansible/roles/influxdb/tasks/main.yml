@@ -1,2 +1,15 @@
 ---
 # tasks file for influxdb
+
+- name: "Download influxdb"
+  import_tasks: "download.yml"
+
+- name: "Install influxdb"
+  import_tasks: "install.yml"
+
+- name: "run grafana service"
+  service: 
+    name: influxdb
+    state: started
+    enabled: yes
+  become: yes

@@ -14,7 +14,8 @@ sudo apt-get install git -y
 cd 
 
 # 4. Change dir
-mkdir app | cd app
+mkdir app 
+cd app
 
 # 5. Clone repo
 git clone https://github.com/Matys98/my-cv.git

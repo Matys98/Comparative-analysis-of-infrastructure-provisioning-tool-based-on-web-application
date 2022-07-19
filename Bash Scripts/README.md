@@ -12,6 +12,9 @@ list of apps posible to deploy
 ### Static web app - My CV
 Benchmark for Master degree project - Comparative analysis of infrastructure provisioning tool based on web application.
 
+scp ./staticwebapp.sh  vagrant@192.168.56.22:/home/vagrant/staticwebapp.sh
+ssh -i ./home/user/.ssh/id_rsa vagrant@192.168.56.22 'chmod u+x staticwebapp.sh | ./staticwebapp.sh'
+
 [My CV App](https://github.com/Matys98/my-cv)
 
 ### Tiquet

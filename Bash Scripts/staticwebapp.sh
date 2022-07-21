@@ -37,7 +37,7 @@ npm run build
 # 10. Change package.json
     # delete homepage from file
 
-cp -r ./app/my-cv/cv/build/static/ ./app/my-cv/cv/build/my-cv/
+cp -r /home/$(whoami)/app/my-cv/cv/build/static/ /home/$(whoami)/app/my-cv/cv/build/my-cv/
 
 # 11. Run app
 pm2 serve build --name web-app

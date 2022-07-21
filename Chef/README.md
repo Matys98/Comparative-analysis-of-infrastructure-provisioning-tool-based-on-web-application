@@ -6,6 +6,8 @@ Fabric is a high level Python (2.7, 3.4+) library designed to execute shell comm
 ## How to run
 [Tutorial](https://www.freecodecamp.org/news/an-introduction-to-chef-and-infrastructure-as-code-7d8ad2689b8/)
 
+[YT-Tutorial](https://www.youtube.com/watch?v=lqMijB1JIuU&ab_channel=ChefSoftware)
+
 ## Aplications
 list of apps posible to deploy
 

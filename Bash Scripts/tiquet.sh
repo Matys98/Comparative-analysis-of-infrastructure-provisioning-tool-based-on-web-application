@@ -11,6 +11,7 @@ sudo apt install software-properties-common -y
 sudo apt-get install git -y
 
 # 2. Create app dir
+cp "$(pwd)"/Tiquet/config.ts /home/$(whoami)/Tiquet/config.ts
 cd 
 
 # 3. Change dir
@@ -21,9 +22,12 @@ cd app
 git clone https://github.com/FLiotta/Tiquet.git
 
 # 5. Change dir
-cd 
+cd "$(pwd)"/Tiquet/config.ts /home/$(whoami)/app/Tiquet/client/src/config.ts
 
 sed -i 's/cffi==1.14.0/cffi==1.14.1/g' ./app/Tiquet/server/requirements.txt
+
+# 6. Copy config file
+cp "$(pwd)"/Tiquet/config.ts /home/$(whoami)/app/Tiquet/client/src/config.ts
 
 ##################################
 #   All commands to deploy tiquet database

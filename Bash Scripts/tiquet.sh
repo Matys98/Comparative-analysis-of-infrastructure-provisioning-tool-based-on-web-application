@@ -61,12 +61,15 @@ psql -U postgres -c "CREATE DATABASE tiquet"
 
 ##################################
 #   All commands to deploy tiquet frontend
+sudo apt-get install curl
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+
 sudo apt-get install nodejs -y
 sudo apt-get install npm -y
 
 sudo apt-get update
 
-cd ./app/Tiquet/client
+cd /home/$(whoami)/app/Tiquet/client
 
 # 2. Instal npm
 npm install
@@ -74,6 +77,7 @@ npm audit fix
 
 # 3. Instal serve
 sudo npm install serve -g
+sudo npm install save-dev webpack-cli -g
 
 # 4. Install pm2
 sudo npm install pm2 -g 
@@ -101,7 +105,7 @@ sudo apt install libpq-dev -y
 sudo apt install libffi-dev -y
 
 # 2. Change dir to server
-cd ./app/Tiquet/server
+cd /home/$(whoami)/app/Tiquet/server
 
 virtualenv env
 source env/bin/activate

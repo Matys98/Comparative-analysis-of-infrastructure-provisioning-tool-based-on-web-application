@@ -111,8 +111,8 @@ virtualenv env
 source env/bin/activate
 
 # 3. Install packages
-echo requests==2.25.1 >> ./requirements.txt
-pip install -r ./requirements.txt
+echo requests==2.25.1 >> /home/$(whoami)/app/Tiquet/server/requirements.txt
+pip install -r /home/$(whoami)/app/Tiquet/server/requirements.txt 
 
 sudo bash -c "cat > ./app/config.py << EOF
 import os
@@ -124,9 +124,10 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 EOF
 "
 # 4. Configure DB
-python3 create_tables.py
+python3 /home/$(whoami)/app/Tiquet/server/create_tables.py
 
 # 5. Run application
+cd /home/$(whoami)/app/Tiquet/server
 pm2 start run.py --interpreter python3 --name backend
 
 deactivate

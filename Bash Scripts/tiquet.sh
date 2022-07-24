@@ -22,7 +22,7 @@ cd app
 git clone https://github.com/FLiotta/Tiquet.git
 
 # 5. Change dir
-cd "$(pwd)"/Tiquet/config.ts /home/$(whoami)/app/Tiquet/client/src/config.ts
+cd /home/$(whoami)/Tiquet/config.ts /home/$(whoami)/app/Tiquet/client/src/config.ts
 
 sed -i 's/cffi==1.14.0/cffi==1.14.1/g' ./app/Tiquet/server/requirements.txt
 

@@ -5,33 +5,29 @@ import getpass
 # from static import *
 
 def instal_apps(ctx):
-    c.run('sudo apt-get update')
-    c.run('sudo apt-get install curl -y')
-    c.run('curl -fsSL https://deb.nodesource.com/setup_16.x | sudo bash -')
-    c.run('sudo apt-get install nodejs -y')
-   #  c.run('sudo apt-get install npm -y')
-    c.run('sudo apt-get install git -y')
-    c.run('sudo apt-get update --fix-missing')
+    c.sudo('apt-get update')
+    c.sudo('apt-get install npm -y')
+    c.sudo('apt-get install git -y')
+
 
 def download_repo(ctx, repo_url):
    #  c.run('cd /home/$(whoami)')
-    c.run('mkdir /home/$(whoami)/app')
+    c.run('mkdir /home/$(whoami)/app || echo "app exist"')
     with c.cd('/home/$(whoami)/app/'):
-      result = c.run('git clone ' + repo_url)
-      print(result)
+      c.run('git clone ' + repo_url)
+      
 
 def config_node(ctx, repo_dir):
     with c.cd('/home/$(whoami)/app/my-cv/cv/'):
-      c.run('sudo npm install')
-      c.run('sudo npm install serve -g')
-      c.run('sudo npm install pm2 -g | pm2 update')
+      c.run('npm install')
+      c.sudo('npm install serve -g')
+      c.sudo('npm install pm2 -g')
+      c.run('pm2 update')
 
 def run_app(ctx, app_name):
     with c.cd('/home/$(whoami)/app/my-cv/cv/'):
       c.run('npm run build')
       result = c.run('cp -r /build/static/ /build/my-cv/ | ls -la /build/static/')
-      print(result)
-      result = c.run('mv /build/static/ /build/my-cv/')
       print(result)
       c.run('pm2 serve build --name ' + app_name)
       c.run('pm2 list')
@@ -40,7 +36,7 @@ repo_name = ''
 repo_dir = ''
 app_name = ''
 
-vm_host1 = 'vagrant@192.168.56.23'
+vm_host1 = 'vagrant@192.168.56.22'
 vm_host2 = 'vagrant@192.168.56.22'
 vm_host3 = 'vagrant@192.168.56.23'
 

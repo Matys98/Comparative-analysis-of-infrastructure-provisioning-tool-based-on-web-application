@@ -5,7 +5,7 @@
 Vagrant.configure("2") do |config|
     # Instance nr 1 - All case
     config.vm.define "Instance1" do |instance1|
-        instance1.vm.box = "bento/ubuntu-20.04"
+        instance1.vm.box = "alvistack/ubuntu-22.04"
         instance1.vm.hostname = "Instance1"
         instance1.vm.network "private_network", ip: "192.168.56.21"
         instance1.vm.network "forwarded_port", guest: 80, host: 8081
@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
 
     #   Instance nr 2 - Only two and three instances
     config.vm.define "Instance2" do |instance2|
-        instance2.vm.box = "bento/ubuntu-20.04"
+        instance2.vm.box = "alvistack/ubuntu-22.04"
         instance2.vm.hostname = "Instance2"
         instance2.vm.network "private_network", ip: "192.168.56.22"
         instance2.vm.network "forwarded_port", guest: 80, host: 8082
@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
 
     #   Instance nr 3 - Only three instances
     config.vm.define "Instance3" do |instance3|
-        instance3.vm.box = "bento/ubuntu-20.04"
+        instance3.vm.box = "alvistack/ubuntu-22.04"
         instance3.vm.hostname = "Instance3"
         instance3.vm.network "private_network", ip: "192.168.56.23"
         instance3.vm.network "forwarded_port", guest: 80, host: 8083

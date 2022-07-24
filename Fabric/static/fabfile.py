@@ -8,27 +8,28 @@ def instal_apps(ctx):
     c.sudo('apt-get update')
     c.sudo('apt-get install npm -y')
     c.sudo('apt-get install git -y')
-
+    print("instal_apps_fin")
 
 def download_repo(ctx, repo_url):
    #  c.run('cd /home/$(whoami)')
     c.run('mkdir /home/$(whoami)/app || echo "app exist"')
     with c.cd('/home/$(whoami)/app/'):
       c.run('git clone ' + repo_url)
-      
+    print("download_repo_fin")
 
 def config_node(ctx, repo_dir):
     with c.cd('/home/$(whoami)/app/my-cv/cv/'):
       c.run('npm install')
-      c.sudo('npm install serve -g')
-      c.sudo('npm install pm2 -g')
-      c.run('pm2 update')
+      c.run('sudo npm install serve -g')
+      c.run('sudo npm install pm2 -g')
+      # c.run('pm2 update')
+    print("config_node_fin")
 
 def run_app(ctx, app_name):
     with c.cd('/home/$(whoami)/app/my-cv/cv/'):
       c.run('npm run build')
-      result = c.run('cp -r /build/static/ /build/my-cv/ | ls -la /build/static/')
-      print(result)
+      # result = c.run('cp -r /build/static/ /build/my-cv/ | ls -la /build/static/')
+      print("run_fin")
       c.run('pm2 serve build --name ' + app_name)
       c.run('pm2 list')
 
@@ -36,7 +37,7 @@ repo_name = ''
 repo_dir = ''
 app_name = ''
 
-vm_host1 = 'vagrant@192.168.56.22'
+vm_host1 = 'vagrant@192.168.56.21'
 vm_host2 = 'vagrant@192.168.56.22'
 vm_host3 = 'vagrant@192.168.56.23'
 

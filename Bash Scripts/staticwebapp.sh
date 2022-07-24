@@ -32,13 +32,14 @@ sudo npm install serve -g
 # 9. Install pm2
 sudo npm install pm2 -g | pm2 update
 
+# sed -r '3,4 s/.*/"homepage": "."/' /home/$(whoami)/app/my-cv/cv/package.json/
 npm run build
 
 # 10. Change package.json
     # delete homepage from file
 
-cp -r /home/$(whoami)/app/my-cv/cv/build/static/ /home/$(whoami)/app/my-cv/cv/build/my-cv/
-mv /home/$(whoami)/app/my-cv/cv/build/static/ /home/$(whoami)/app/my-cv/cv/build/my-cv/
+# cp -r /home/$(whoami)/app/my-cv/cv/build/static/ /home/$(whoami)/app/my-cv/cv/build/my-cv/
+# mv /home/$(whoami)/app/my-cv/cv/build/static/ /home/$(whoami)/app/my-cv/cv/build/my-cv/
 # 11. Run app
 pm2 serve build --name web-app
 

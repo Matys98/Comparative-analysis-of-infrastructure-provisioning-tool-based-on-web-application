@@ -1,0 +1,27 @@
+# encoding: utf-8
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    # Instance nr 1 - All case
+    config.vm.define "Instance1" do |instance1|
+        instance1.vm.box = "alvistack/ubuntu-22.04"
+        instance1.vm.hostname = "Instance1"
+        instance1.vm.network "private_network", ip: "192.168.56.21"
+        instance1.vm.network "forwarded_port", guest: 80, host: 8081
+    end
+
+    #   insert pub_key into the host
+    config.ssh.forward_agent = true
+    config.ssh.insert_key = false
+
+    config.ssh.private_key_path =  ["~/.vagrant.d/insecure_private_key","/home/matys/.ssh/id_rsa"]
+    
+    config.vm.provision :shell, privileged: false do |s|
+        ssh_pub_key = File.readlines("/home/matys/.ssh/id_rsa.pub").first.strip
+        s.inline = <<-SHELL
+            touch $HOME/.ssh/authorized_keys
+            echo #{ssh_pub_key} >> $HOME/.ssh/authorized_keys
+        SHELL
+    end
+end

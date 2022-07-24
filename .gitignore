@@ -3,3 +3,12 @@ Vagrant/.vagrant/rgloader/loader.rb
 Vagrant/.Vagrantfile.swp
 Vagrant/.Vagrantfile.swo
 Vagrant/.vagrant/machines/Instance1/virtualbox/vagrant_cwd
+Vagrant/single/.vagrant/machines/Instance1/virtualbox/action_provision
+Vagrant/single/.vagrant/machines/Instance1/virtualbox/action_set_name
+Vagrant/single/.vagrant/machines/Instance1/virtualbox/box_meta
+Vagrant/single/.vagrant/machines/Instance1/virtualbox/creator_uid
+Vagrant/single/.vagrant/machines/Instance1/virtualbox/id
+Vagrant/single/.vagrant/machines/Instance1/virtualbox/index_uuid
+Vagrant/single/.vagrant/machines/Instance1/virtualbox/synced_folders
+Vagrant/single/.vagrant/machines/Instance1/virtualbox/vagrant_cwd
+Vagrant/single/.vagrant/rgloader/loader.rb

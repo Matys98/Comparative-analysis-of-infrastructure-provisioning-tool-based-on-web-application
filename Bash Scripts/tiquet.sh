@@ -113,7 +113,7 @@ source env/bin/activate
 echo requests==2.25.1 >> /home/$(whoami)/app/Tiquet/server/requirements.txt
 pip install -r /home/$(whoami)/app/Tiquet/server/requirements.txt 
 
-sudo bash -c "cat > ./app/config.py << EOF
+sudo bash -c "cat > /home/$(whoami)/app/Tiquet/server/app/config.py << EOF
 import os
 
 DEBUG = True

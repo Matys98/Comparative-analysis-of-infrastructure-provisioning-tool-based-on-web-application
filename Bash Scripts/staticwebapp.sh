@@ -1,4 +1,4 @@
-
+#!/bin/bash
 #   All commands to deploy static web app
 
 # 0. Update packages
@@ -38,7 +38,7 @@ npm run build
     # delete homepage from file
 
 cp -r /home/$(whoami)/app/my-cv/cv/build/static/ /home/$(whoami)/app/my-cv/cv/build/my-cv/
-
+mv /home/$(whoami)/app/my-cv/cv/build/static/ /home/$(whoami)/app/my-cv/cv/build/my-cv/
 # 11. Run app
 pm2 serve build --name web-app
 

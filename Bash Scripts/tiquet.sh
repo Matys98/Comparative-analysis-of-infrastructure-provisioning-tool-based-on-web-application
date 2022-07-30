@@ -75,7 +75,6 @@ fi
 if [ $FRONTEND ] || [ $ALL ]; then
     ##################################
     #   All commands to deploy tiquet frontend
-    sudo apt-get install curl
     curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 
     sudo apt-get install nodejs -y
@@ -111,6 +110,15 @@ if [ $BACKEND ] || [ $ALL ]; then
     ##################################
     #   All commands to deploy tiquet backend - flask
     # 0. Install Python
+    if [ $BACKEND ]; then
+        curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+
+        sudo apt-get install nodejs -y
+        sudo apt-get install npm -y
+
+        sudo apt-get update
+    fi
+
     sudo add-apt-repository ppa:deadsnakes/ppa -y
     sudo apt-get install python3.8 -y
     sudo apt-get install python3-pip -y
@@ -125,6 +133,10 @@ if [ $BACKEND ] || [ $ALL ]; then
 
     virtualenv env
     source env/bin/activate
+
+    if [ $BACKEND ]; then
+        sudo npm install pm2 -g
+    fi
 
     # 3. Install packages
     echo requests==2.25.1 >> /home/$(whoami)/app/Tiquet/server/requirements.txt

@@ -79,7 +79,6 @@ if [ $FRONTEND ] || [ $ALL ]; then
 
     sudo apt-get install nodejs -y
     sudo apt-get install npm -y
-
     sudo apt-get update
 
     cd /home/$(whoami)/app/Tiquet/client
@@ -111,11 +110,7 @@ if [ $BACKEND ] || [ $ALL ]; then
     #   All commands to deploy tiquet backend - flask
     # 0. Install Python
     if [ $BACKEND ]; then
-        curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-
-        sudo apt-get install nodejs -y
         sudo apt-get install npm -y
-
         sudo apt-get update
     fi
 
@@ -131,8 +126,8 @@ if [ $BACKEND ] || [ $ALL ]; then
     # 2. Change dir to server
     cd /home/$(whoami)/app/Tiquet/server
 
-    virtualenv env
-    source env/bin/activate
+    python3 -m virtualenv env || virtualenv env
+    source env/local/bin/activate || source env/bin/activate
 
     if [ $BACKEND ]; then
         sudo npm install pm2 -g

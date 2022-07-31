@@ -4,10 +4,10 @@
 - name: npm build app
   shell: npm run bundle
   args:
-    chdir: "{{app_dest_dir}}"
+    chdir: "{{npm_app_dest_directory}}"
 
 
 - name: pm2 run app
   shell: pm2 start --name frontend npm -- start
   args:
-    chdir: "{{app_dest_dir}}"
+    chdir: "{{npm_app_dest_directory}}"

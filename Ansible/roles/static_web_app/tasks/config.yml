@@ -4,14 +4,11 @@
 - name: npm install package
   shell: npm isntall
   args:
-    chdir: "{{app_dest_dir}}"
+    chdir: "{{npm_app_dest_directory}}"
+  become: yes
 
 - name: npm build app
   shell: npm run build
   args:
-    chdir: "{{app_dest_dir}}"
-
-- name: npm build app
-  shell: pm2 serve build --name web-app
-  args:
-    chdir: "{{app_dest_dir}}"
+    chdir: "{{npm_app_dest_directory}}"
+  become: yes

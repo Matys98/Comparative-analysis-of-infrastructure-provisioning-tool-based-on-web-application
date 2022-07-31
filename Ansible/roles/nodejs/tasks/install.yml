@@ -1,9 +1,9 @@
 ---
 # tasks file for nodejs/install
 
-- name: Install nodejs {{nodejs_version}}
+- name: Install npm
   apt:
-    name: nodejs
+    name: npm
     update_cache: yes
     force_apt_get: yes
     force: yes
@@ -25,3 +25,4 @@
   apt:
     name: "*"
     state: latest
+  become: yes

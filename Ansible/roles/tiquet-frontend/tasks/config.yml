@@ -4,12 +4,12 @@
 - name: npm install package
   shell: npm isntall
   args:
-    chdir: "{{app_dest_dir}}"
+    chdir: "{{npm_app_dest_directory}}"
 
 - name: npm install package
   shell: npm audit fix
   args:
-    chdir: "{{app_dest_dir}}"
+    chdir: "{{npm_app_dest_directory}}"
 
 - name: npm install serve
   npm: 

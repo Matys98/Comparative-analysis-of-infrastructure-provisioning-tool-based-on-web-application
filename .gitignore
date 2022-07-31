@@ -37,3 +37,4 @@ Vagrant/.vagrant/machines/Instance3/virtualbox/id
 Vagrant/.vagrant/machines/Instance3/virtualbox/index_uuid
 Vagrant/.vagrant/machines/Instance3/virtualbox/synced_folders
 Vagrant/.vagrant/machines/Instance3/virtualbox/vagrant_cwd
+Ansible/roles/tiquet-frontend/tasks/<!doctype html>.html

@@ -5,49 +5,35 @@
 - name: Static webapp
   hosts: Instance1
   roles:
-    - nodejs
     - git
-    - run_static_web_app
+    - nodejs
+    - static_web_app
   tags: 
     - StaticWebAppOneInstance
-    - StaticWebAppTwoInstance
+  vars:
+    instance_host: vagrant
+    application_name: static web app
+    git_web_address: https://github.com/
+    appliaction_repository: Matys98/my-cv.git
+    app_dest_directory: /home/vagrant/app/
+    npm_app_dest_directory: /home/vagrant/app/cv/
+
+# Ubuntu - Static webapp ALL instances
+- name: Static webapp
+  hosts: 
+    Instance1
+    Instance2
+    Instance3
+  roles:
+    - git
+    - nodejs
+    - static_web_app
+  tags: 
     - StaticWebAppThreeInstance
   vars:
-    instance_host: matys
+    instance_host: vagrant
     application_name: static web app
     git_web_address: https://github.com/
     appliaction_repository: Matys98/my-cv.git
-    app_dest_directory: /home/"{{instance_host}}"
-
-# Ubuntu - Static webapp
-- name: Static webapp
-  hosts: Instance2
-  roles:
-    - nodejs
-    - git
-    - run_static_web_app
-  tags: 
-    - StaticWebAppTwoInstance
-    - StaticWebAppThreeInstance
-  vars:
-    instance_host: matys
-    application_name: static web app
-    git_web_address: https://github.com/
-    appliaction_repository: Matys98/my-cv.git
-    app_dest_directory: /home/"{{instance_host}}"
-
-# Ubuntu - Static webapp
-- name: Static webapp
-  hosts: Instance3
-  roles:
-    - nodejs
-    - git
-    - run_static_web_app
-  tags: 
-    -StaticWebAppThreeInstance
-  vars:
-    instance_host: matys
-    application_name: static web app
-    git_web_address: https://github.com/
-    appliaction_repository: Matys98/my-cv.git
-    app_dest_directory: /home/"{{instance_host}}"
+    app_dest_directory: /home/vagrant/app/
+    npm_app_dest_directory: /home/vagrant/app/cv/

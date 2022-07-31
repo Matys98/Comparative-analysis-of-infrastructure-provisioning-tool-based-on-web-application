@@ -4,4 +4,5 @@
 - name: npm build app
   shell: pm2 serve build --name web-app
   args:
-    chdir: "{{app_dest_dir}}"
+    chdir: "{{npm_app_dest_directory}}"
+  become: yes

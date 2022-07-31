@@ -20,3 +20,66 @@
     npm_app_dest_directory: /home/vagrant/app/client
     pip_app_dest_directory: /home/vagrant/app/server
 
+# Ubuntu - TIQUET All instance
+- name: TIQUET All instance
+  hosts: 
+    Instance1
+    Instance2
+    Instance3
+  roles:
+    - git
+    - postgresql
+    - tiquet-frontend
+    - tiquet-backend
+  tags: 
+    - TiquetMulti
+  vars:
+    instance_host: vagrant
+    application_name: Tiquet
+    appliaction_repository: FLiotta/Tiquet.git
+    app_dest_directory: /home/vagrant/app/
+    npm_app_dest_directory: /home/vagrant/app/client
+    pip_app_dest_directory: /home/vagrant/app/server
+
+# Ubuntu - TIQUET Split instance
+- name: TIQUET Split instance postgresql
+  hosts: Instance1
+  roles:
+    - postgresql
+  tags: 
+    - TiquetSplit
+  vars:
+    instance_host: vagrant
+    application_name: Tiquet
+    appliaction_repository: FLiotta/Tiquet.git
+    app_dest_directory: /home/vagrant/app
+
+# Ubuntu - TIQUET Split instance
+- name: TIQUET Split instance Frontend
+  hosts: Instance2
+  roles:
+    - git
+    - tiquet-frontend
+  tags: 
+    - TiquetSplit
+  vars:
+    instance_host: vagrant
+    application_name: Tiquet
+    appliaction_repository: FLiotta/Tiquet.git
+    app_dest_directory: /home/vagrant/app
+    npm_app_dest_directory: /home/vagrant/app/client
+
+# Ubuntu - TIQUET Split instance
+- name: TIQUET Split instance Backend
+  hosts: Instance3
+  roles:
+    - git
+    - tiquet-backend
+  tags: 
+    - TiquetSplit
+  vars:
+    instance_host: vagrant
+    application_name: Tiquet
+    appliaction_repository: FLiotta/Tiquet.git
+    app_dest_directory: /home/vagrant/app
+    pip_app_dest_directory: /home/vagrant/app/server

@@ -14,6 +14,7 @@ def instal_apps(ctx, c):
 
 def download_influxdb(ctx, c, db_name):
    c.run('sudo apt-get update')
+   c.run('sudo apt-get update')
    c.run('curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -')
    c.run('echo "deb https://repos.influxdata.com/ubuntu bionic stable" | sudo tee /etc/apt/sources.list.d/influxdb.list')
     
@@ -81,3 +82,19 @@ def grafana_deploy_to_many_instance(c):
       instal_apps(c)
       copy_config_files(c)
       configure_solar(c)
+
+@task
+def grafana_deploy_split_instance(ctx):
+   db_name = "inverter_power"
+   print(" Deploy influxdb to instance: " + vm_host1)
+   c = Connection(host=vm_host1,
+              connect_kwargs={"key_filename": ssh_path})
+   download_influxdb(ctx, c, db_name)
+   print(" Deploy solar panel app to instance: " + vm_host1)
+   c = Connection(host=vm_host2,
+              connect_kwargs={"key_filename": ssh_path})
+   instal_apps(ctx, c)
+   copy_config_files(ctx, c)
+   configure_solar(ctx, c)
+
+   print("completed")

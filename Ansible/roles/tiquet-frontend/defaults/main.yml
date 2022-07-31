@@ -1,2 +1,5 @@
 ---
 # defaults file for tiquet-frontend
+nodejs_version: '11.9'
+nodejs_version_url: https://deb.nodesource.com/setup_8.x
+nodejs_setup_path: /tmp/nodesource_setup.sh

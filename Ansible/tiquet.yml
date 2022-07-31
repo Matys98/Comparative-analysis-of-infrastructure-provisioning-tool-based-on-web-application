@@ -5,57 +5,34 @@
 - name: TIQUET Single instance
   hosts: Instance1
   roles:
-    - nodejs
-    - python
+    - git
     - postgresql
     - tiquet-frontend
-    - tiquet-backend
   tags: 
     - TiquetSingle
   vars:
-    instance_host: matys
-    application_name: static web app
-    git_web_address: https://github.com/
-    appliaction_repository: Matys98/my-cv.git
-    app_dest_directory: /home/"{{instance_host}}"
+    instance_host: vagrant
+    application_name: Tiquet
+    appliaction_repository: FLiotta/Tiquet.git
+    app_dest_directory: /home/vagrant/app
+    app_dest_directory: /home/vagrant/app/
+    npm_app_dest_directory: /home/vagrant/app/client
+    pip_app_dest_directory: /home/vagrant/app/server
 
-# Ubuntu - TIQUET Two instance
-- name: TIQUET Two instance 1
-  hosts: Instance1
-  roles:
-    - nodejs
-    - python
-  tags: 
-    - TiquetTwo
 
-# Ubuntu - TIQUET Two instance
-- name: TIQUET Two instance 1
-  hosts: Instance2
-  roles:
-    - postgresql
-  tags: 
-    - TiquetTwo
-
-# Ubuntu - TIQUET Three instance
-- name: TIQUET Three instance
-  hosts: Instance1
-  roles:
-    - nodejs
-  tags: 
-    - TiquetThree
-
-# Ubuntu - TIQUET Three instance
-- name: TIQUET Three Instance 2
-  hosts: Instance2
-  roles:
-    - python
-  tags: 
-    - TiquetThree
-
-# Ubuntu - TIQUET Three instance
-- name: TIQUET Three Instance 3
-  hosts: Instance3
-  roles:
-    - postgresql
-  tags: 
-    - TiquetThree
+# Ubuntu - TIQUET Single instance
+# - name: TIQUET All instance
+#   hosts: 
+#     Instance1
+#     Instance2
+#     Instance3
+#   roles:
+#     - nodejs
+#     - python
+#     - postgresql
+#     - tiquet-frontend
+#     - tiquet-backend
+#   tags: 
+#     - TiquetMulti
+#   vars:
+#     instance_host: vagrant

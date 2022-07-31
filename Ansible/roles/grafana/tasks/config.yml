@@ -7,13 +7,20 @@
 - name: Copy data sources config
   template:
     src: "{{datasorce_path}}"
-    dest: "{{grafana_path}}"/datasources
+    dest: "{{grafana_path_datasources}}"
   become: yes
 
 - name: Copy dashbords config
   template:
     src: "{{dashbords_path}}"
-    dest: "{{grafana_path}}"/dashboards
+    dest: "{{grafana_path_dashboards}}"
+  become: yes
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "{{grafana_dashboard_dest_dir}}"
+    state: directory
+    mode: '0755'
   become: yes
 
 - name: Copy dashbord

@@ -4,11 +4,7 @@
 - name: config pg_hba file
   template:
     src: pg_hba.conf
-    dest: /tmp/pg_hba.conf
-  become: yes
-
-- name: Add PG config to file
-  shell: cat > /etc/postgresql/14/main/pg_hba.conf
+    dest: /etc/postgresql/14/main/pg_hba.conf
   become: yes
 
 - name: restart postgresql

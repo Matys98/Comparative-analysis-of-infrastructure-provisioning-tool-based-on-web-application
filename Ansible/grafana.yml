@@ -10,24 +10,18 @@
   tags: 
     - GrafanaSingle
   vars:
-    instance_host: matys
-    application_name: static web app
-    git_web_address: https://github.com/
-    appliaction_repository: Matys98/my-cv.git
-    app_dest_directory: /home/"{{instance_host}}"
+    instance_host: vagrant
 
-# Ubuntu - Grafana Two instance
-- name: Grafana Two instance 1
-  hosts: Instance2
+# Ubuntu - Grafana Single instance
+- name: Grafana Multi instance
+  hosts: 
+    Instance1
+    Instance2
+    Instance3
   roles:
-    - nodejs
+    - influxdb
+    - grafana
   tags: 
-    - GrafanaTwo
-
-# Ubuntu - Grafana Two instance
-- name: Grafana Two instance 2
-  hosts: Instance2
-  roles:
-    - rubyonrails
-  tags: 
-    - GrafanaTwo
+    - GrafanaMulti
+  vars:
+    instance_host: vagrant

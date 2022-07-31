@@ -5,9 +5,10 @@
   import_tasks: "install.yml"
 
 - name: "Run postgresql"
-  import_tasks: "run_install.yml"
+  import_tasks: "run_postgres.yml"
 
 - name: update apt
   apt:
     name: "*"
     state: latest
+  become: yes

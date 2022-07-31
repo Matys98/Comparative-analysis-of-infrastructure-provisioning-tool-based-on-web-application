@@ -12,8 +12,6 @@
 - name: Add repository
   apt_repository:
     repo: ppa:deadsnakes/ppa
-    force_apt_get: yes
-    force: yes
   become: yes
 
 - name: Install python

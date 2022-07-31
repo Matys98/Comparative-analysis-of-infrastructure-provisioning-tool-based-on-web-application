@@ -3,12 +3,18 @@
 
 - name: Create database tables
   shell: python3 create_tables.py
+  args:
+    chdir: "{{pip_app_dest_directory}}"
   become: yes
+  ignore_errors: yes
 
 - name: run virtual env
   shell: pm2 start run.py --interpreter python3 --name backend
+  args:
+    chdir: "{{pip_app_dest_directory}}"
   become: yes
 
 - name: logout of virtual env
   shell: deactivate
   become: yes
+  ignore_errors: yes

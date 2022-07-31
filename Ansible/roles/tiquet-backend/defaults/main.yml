@@ -1,2 +1,4 @@
 ---
 # defaults file for tiquet-backend
+requirments_path: /home/vagrant/app/server/requirements.txt
+pip_app_dest_directory: /home/vagrant/app/server

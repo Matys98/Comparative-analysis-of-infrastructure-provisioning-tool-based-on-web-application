@@ -8,6 +8,7 @@
     - git
     - postgresql
     - tiquet-frontend
+    - tiquet-backend
   tags: 
     - TiquetSingle
   vars:
@@ -19,20 +20,3 @@
     npm_app_dest_directory: /home/vagrant/app/client
     pip_app_dest_directory: /home/vagrant/app/server
 
-
-# Ubuntu - TIQUET Single instance
-# - name: TIQUET All instance
-#   hosts: 
-#     Instance1
-#     Instance2
-#     Instance3
-#   roles:
-#     - nodejs
-#     - python
-#     - postgresql
-#     - tiquet-frontend
-#     - tiquet-backend
-#   tags: 
-#     - TiquetMulti
-#   vars:
-#     instance_host: vagrant

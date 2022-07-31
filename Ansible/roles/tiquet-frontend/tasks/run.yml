@@ -1,13 +1,22 @@
 ---
 # tasks file for static_web_app/config
 
+- name: Copy config.ts
+  template:
+    src: config.ts
+    dest: /home/vagrant/app/client/src
+  become: yes
+
 - name: npm build app
   shell: npm run bundle
   args:
     chdir: "{{npm_app_dest_directory}}"
+  become: yes
+  ignore_errors: yes
 
 
 - name: pm2 run app
   shell: pm2 start --name frontend npm -- start
   args:
     chdir: "{{npm_app_dest_directory}}"
+  become: yes

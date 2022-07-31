@@ -1,24 +1,24 @@
 ---
 # tasks file for tiquet-backend/config
 
-- name: Enable virtual env
-  shell: virtualenv env
-  become: yes
-
-- name: run virtual env
-  shell: source env/bin/activate
-  become: yes
-
-- name: run virtual env
+- name: change req files
   shell: echo requests==2.25.1 >> "{{requirments_path}}"
+  args:
+    chdir: "{{pip_app_dest_directory}}"
   become: yes
+
+- name: Enable virtual env
+  shell: python3 -m virtualenv env 
+  become: yes
+
+- name: run virtual env
+  shell: source env/local/bin/activate
+  args:
+    chdir: /home/vagrant
+  become: yes
+  ignore_errors: yes
   
 - name: Install specified python requirements
   pip:
     requirements: "{{requirments_path}}"
-
-- name: copy config.py file
-  template:
-    src: config.py
-    dest: /app/config.py
-  become: yes
+  ignore_errors: yes

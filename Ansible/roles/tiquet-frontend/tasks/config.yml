@@ -5,11 +5,13 @@
   shell: npm isntall
   args:
     chdir: "{{npm_app_dest_directory}}"
+  become: yes
 
-- name: npm install package
-  shell: npm audit fix
-  args:
-    chdir: "{{npm_app_dest_directory}}"
+# - name: npm fix package
+#   shell: npm audit fix
+#   args:
+#     chdir: "{{npm_app_dest_directory}}"
+#   become: yes
 
 - name: npm install serve
   npm: 
@@ -27,3 +29,4 @@
   apt:
     name: "*"
     state: latest
+  become: yes

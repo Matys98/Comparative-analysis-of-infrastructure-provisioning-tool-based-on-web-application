@@ -3,6 +3,10 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+    config.vm.provider "virtualbox" do |v|
+        v.memory = 2048
+        v.cpus = 1
+    end
     # Instance nr 1 - All case
     config.vm.define "Instance1" do |instance1|
         instance1.vm.box = "alvistack/ubuntu-22.04"

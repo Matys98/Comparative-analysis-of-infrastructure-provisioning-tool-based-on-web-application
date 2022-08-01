@@ -7,8 +7,8 @@
 - name: "Run postgresql"
   import_tasks: "run_postgres.yml"
 
-- name: update apt
-  apt:
-    name: "*"
-    state: latest
-  become: yes
+# - name: update apt
+#   apt:
+#     name: "*"
+#     state: latest
+#   become: yes

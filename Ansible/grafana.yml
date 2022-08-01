@@ -11,6 +11,7 @@
     - GrafanaSingle
   vars:
     instance_host: vagrant
+    infuxdb_ip: localhost
 
 # Ubuntu - Grafana Single instance
 - name: Grafana Multi instance
@@ -25,3 +26,27 @@
     - GrafanaMulti
   vars:
     instance_host: vagrant
+    infuxdb_ip: localhost
+
+# Ubuntu - Grafana Single instance
+- name: Grafana Split instance
+  hosts: 
+    Instance1
+  roles:
+    - influxdb
+  tags: 
+    - GrafanaSplit
+  vars:
+    instance_host: vagrant
+
+# Ubuntu - Grafana Single instance
+- name: Grafana Split instance
+  hosts: 
+    Instance2
+  roles:
+    - grafana
+  tags: 
+    - GrafanaSplit
+  vars:
+    instance_host: vagrant
+    infuxdb_ip: 192.168.56.21

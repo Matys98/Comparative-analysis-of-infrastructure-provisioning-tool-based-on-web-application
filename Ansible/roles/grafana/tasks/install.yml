@@ -19,11 +19,11 @@
     state: present
   become: yes
 
-- name: update apt
-  apt:
-    name: "*"
-    state: latest
-  become: yes
+# - name: update apt
+#   apt:
+#     name: "*"
+#     state: latest
+#   become: yes
 
 - name: Install grafana
   apt:

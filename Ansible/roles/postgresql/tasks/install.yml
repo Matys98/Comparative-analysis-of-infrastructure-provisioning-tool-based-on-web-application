@@ -1,10 +1,10 @@
 ---
 # tasks file for roles/postgresql/install
-- name: update apt
-  apt:
-    name: "*"
-    state: latest
-  become: yes
+# - name: update apt
+#   apt:
+#     name: "*"
+#     state: latest
+#   become: yes
 
 - name: install postgresql
   apt:

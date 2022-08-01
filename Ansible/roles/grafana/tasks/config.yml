@@ -2,7 +2,7 @@
 # tasks file for grafana/config
 
 - name: Creating data base by post method
-  shell: curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE {{database_name}}"
+  shell: curl -i -XPOST http://"{{infuxdb_ip}}":8086/query --data-urlencode "q=CREATE DATABASE {{database_name}}"
 
 - name: Copy data sources config
   template:

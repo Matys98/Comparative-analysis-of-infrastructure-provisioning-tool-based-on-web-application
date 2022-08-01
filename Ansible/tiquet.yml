@@ -48,6 +48,7 @@
     - postgresql
   tags: 
     - TiquetSplit
+    - Instance1
   vars:
     instance_host: vagrant
     application_name: Tiquet
@@ -62,6 +63,7 @@
     - tiquet-frontend
   tags: 
     - TiquetSplit
+    - Instance2
   vars:
     instance_host: vagrant
     application_name: Tiquet
@@ -77,6 +79,7 @@
     - tiquet-backend
   tags: 
     - TiquetSplit
+    - Instance3
   vars:
     instance_host: vagrant
     application_name: Tiquet

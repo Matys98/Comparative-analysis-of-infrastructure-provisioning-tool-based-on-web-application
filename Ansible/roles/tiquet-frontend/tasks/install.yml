@@ -4,7 +4,9 @@
 - name: Install npm
   apt:
     name: npm
+    update_cache: yes
     force_apt_get: yes
+    force: yes
   become: yes
 
 # - name: update apt

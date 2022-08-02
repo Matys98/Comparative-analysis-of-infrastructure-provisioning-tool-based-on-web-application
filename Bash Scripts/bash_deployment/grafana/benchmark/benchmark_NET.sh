@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # Input values
-while getopts n: flag
+while getopts n:l: flag
 do
     case "${flag}" in
         n) LOG_NAME=${OPTARG};;
+        l) LOG_PATH=${OPTARG};;
     esac
 done
 
@@ -28,12 +29,12 @@ do
     RBPS=`expr $R2 - $R1`
     
     if [ $i == 1 ]; then
-        echo "ID; Time; Network interface; TBPS; RBPS" > ./logs/net-$LOG_NAME-$(date +%F).log
+        echo "ID; Time; Network interface; TBPS; RBPS" > $LOG_PATH/net-$LOG_NAME-$(date +%F).log
     fi
-        echo "$i;$time_with_ms;$net_interface;$TBPS;$RBPS" >> ./logs/net-$LOG_NAME-$(date +%F).log
+        echo "$i;$time_with_ms;$net_interface;$TBPS;$RBPS" >> $LOG_PATH/net-$LOG_NAME-$(date +%F).log
 
     if [ -f "$FILE" ];  then
-        echo "Build Completed" >> ./logs/net-$LOG_NAME-$(date +%F).log
+        echo "Build Completed" >> $LOG_PATH/net-$LOG_NAME-$(date +%F).log
         exit 0
     fi
 done

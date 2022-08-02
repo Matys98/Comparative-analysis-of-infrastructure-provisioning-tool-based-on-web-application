@@ -17,22 +17,32 @@ mkdir -p $NEW_LOG_PATH
 
 if [ $DEPLOYMENT = "single" ]; then
 # Deploy to Instance1 (Grafana + DB)
-    ./benchmark/benchmark.sh -a grafana -t bash -p $NEW_LOG_PATH && start=`date +%s.%N` && ./grafana.sh && stop=`date +%s.%N` && ./benchmark/finished.sh 
-    runtime=$( echo "$stop - $start" | bc -l )
-    echo $runtime > $NEW_LOG_PATH/deploy_time.txt
+    ./benchmark/benchmark.sh -a grafana -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && ./grafana.sh && stop=`date +%s.%N` && ./benchmark/finished.sh 
+    runtime_s=$( echo "$stop - $start" | bc -l )
+    runtime_m=$( echo "$runtime_s / 60" | bc -l )
+    echo "Deploy statrted at $start_date | In seconds: $runtime_s | In minutes: $runtime_m" > $NEW_LOG_PATH/deploy_time.txt
 fi
 
 if [ $DEPLOYMENT = "split" ]; then
     # Deploy to Instance1 and Instance2 (DB separate frome Grafana)
-    ./benchmark/benchmark.sh -a grafana -t bash -p $NEW_LOG_PATH && start=`date +%s.%N` && ./split_grafana.sh && stop=`date +%s.%N` && ./benchmark/finished.sh
+    ./benchmark/benchmark.sh -a grafana -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && ./split_grafana.sh && stop=`date +%s.%N` && ./benchmark/finished.sh
     runtime_s=$( echo "$stop - $start" | bc -l )
     runtime_m=$( echo "$runtime_s / 60" | bc -l )
-    echo "In seconds: $runtime_s | In minutes: $runtime_m" > $NEW_LOG_PATH/deploy_time.txt
+    echo "Deploy statrted at $start_date | In seconds: $runtime_s | In minutes: $runtime_m" > $NEW_LOG_PATH/deploy_time.txt
 fi
 
 if [ $DEPLOYMENT = "multi" ]; then
     # Deploy to All instances (Grafana + DB)
-    ./benchmark/benchmark.sh -a grafana -t bash -p $NEW_LOG_PATH && start=`date +%s.%N` && ./multi_grafana.sh && stop=`date +%s.%N` && ./benchmark/finished.sh
-    runtime=$( echo "$stop - $start" | bc -l )
-    echo $runtime > $NEW_LOG_PATH/deploy_time.txt
+    ./benchmark/benchmark.sh -a grafana -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && ./multi_grafana.sh && stop=`date +%s.%N` && ./benchmark/finished.sh
+    runtime_s=$( echo "$stop - $start" | bc -l )
+    runtime_m=$( echo "$runtime_s / 60" | bc -l )
+    echo "Deploy statrted at $start_date | In seconds: $runtime_s | In minutes: $runtime_m" > $NEW_LOG_PATH/deploy_time.txt
+fi
+
+if [ $DEPLOYMENT = "test" ]; then
+    # Deploy to All instances (Grafana + DB)
+    ./benchmark/benchmark.sh -a grafana -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && sleep 5 && stop=`date +%s.%N` && ./benchmark/finished.sh
+    runtime_s=$( echo "$stop - $start" | bc -l )
+    runtime_m=$( echo "$runtime_s / 60" | bc -l )
+    echo "Deploy statrted at $start_date | In seconds: $runtime_s | In minutes: $runtime_m" > $NEW_LOG_PATH/deploy_time.txt
 fi

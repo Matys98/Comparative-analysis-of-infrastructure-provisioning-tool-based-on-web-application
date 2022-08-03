@@ -20,7 +20,7 @@ mkdir -p $NEW_LOG_PATH
 
 if [ $DEPLOYMENT = "single" ]; then
 # Deploy to Instance1 (Grafana + DB)
-    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && ./grafana.sh && stop=`date +%s.%N` && ./benchmark/finished.sh 
+    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && ansible-playbook -i hosts grafana.yml --tags "GrafanaSingle" && stop=`date +%s.%N` && ./benchmark/finished.sh 
     runtime_s=$( echo "$stop - $start" | bc -l )
     runtime_m=$( echo "$runtime_s / 60" | bc -l )
     echo "Deploy statrted at $start_date | In seconds: $runtime_s | In minutes: $runtime_m" > $NEW_LOG_PATH/deploy_time.txt
@@ -28,7 +28,7 @@ fi
 
 if [ $DEPLOYMENT = "split" ]; then
     # Deploy to Instance1 and Instance2 (DB separate frome Grafana)
-    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && ./split_grafana.sh && stop=`date +%s.%N` && ./benchmark/finished.sh
+    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && ansible-playbook -i hosts grafana.yml --tags "GrafanaSplit" && stop=`date +%s.%N` && ./benchmark/finished.sh
     runtime_s=$( echo "$stop - $start" | bc -l )
     runtime_m=$( echo "$runtime_s / 60" | bc -l )
     echo "Deploy statrted at $start_date | In seconds: $runtime_s | In minutes: $runtime_m" > $NEW_LOG_PATH/deploy_time.txt
@@ -36,7 +36,7 @@ fi
 
 if [ $DEPLOYMENT = "multi" ]; then
     # Deploy to All instances (Grafana + DB)
-    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && ./multi_grafana.sh && stop=`date +%s.%N` && ./benchmark/finished.sh
+    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && ansible-playbook -i hosts grafana.yml --tags "GrafanaMulti" && stop=`date +%s.%N` && ./benchmark/finished.sh
     runtime_s=$( echo "$stop - $start" | bc -l )
     runtime_m=$( echo "$runtime_s / 60" | bc -l )
     echo "Deploy statrted at $start_date | In seconds: $runtime_s | In minutes: $runtime_m" > $NEW_LOG_PATH/deploy_time.txt

@@ -11,3 +11,5 @@ solar_system_dashbord_path: solar-system.json
 grafana_dashboard_dest_dir: /var/lib/grafana/dashboards
 grafana_path_datasources: /etc/grafana/provisioning/datasources
 grafana_path_dashboards: /etc/grafana/provisioning/dashboards
+
+infuxdb_ip: localhost

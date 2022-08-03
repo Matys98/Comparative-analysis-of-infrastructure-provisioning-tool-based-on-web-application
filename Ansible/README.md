@@ -26,6 +26,9 @@ Example how to run with tags
 
 ```console
 foo@bar:~$ ansible-playbook -i hosts playbook.yml --tags "foo"
+
+# Deploy static web app to all 3 instnance
+foo@bar:~$ ansible-playbook -i hosts static.yml --tags "StaticWebAppThreeInstance"
 ```
 
 ## Aplications

@@ -1,3 +1,5 @@
+echo "Grafana multi instances"
+
 #   Instance 1
 
 scp ../../grafana.sh  vagrant@192.168.56.21:/home/vagrant/script.sh

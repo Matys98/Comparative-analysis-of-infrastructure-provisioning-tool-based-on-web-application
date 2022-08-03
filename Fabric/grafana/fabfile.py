@@ -69,16 +69,12 @@ def grafana_deploy_to_one_instance(ctx):
 
 @task
 def grafana_deploy_to_many_instance(c):
-   hosts = [vm_host1, vm_host2]
-   db_host = vm_host3
+   hosts = [vm_host1, vm_host2, vm_host3]
    db_name = 'inverter_power'
    print(" Deploy solar panel app to instance: " + str(hosts) + " \nDeploy db to " + db_host)
-
-   c = Connection(host=db_host,
-       connect_kwargs={"key_filename": ssh_path})
-   download_influxdb(c, db_name)
-
+   
    for c in SerialGroup(hosts):
+      download_influxdb(c, db_name)
       instal_apps(c)
       copy_config_files(c)
       configure_solar(c)
@@ -90,7 +86,8 @@ def grafana_deploy_split_instance(ctx):
    c = Connection(host=vm_host1,
               connect_kwargs={"key_filename": ssh_path})
    download_influxdb(ctx, c, db_name)
-   print(" Deploy solar panel app to instance: " + vm_host1)
+   
+   print(" Deploy solar panel app to instance: " + vm_host2)
    c = Connection(host=vm_host2,
               connect_kwargs={"key_filename": ssh_path})
    instal_apps(ctx, c)

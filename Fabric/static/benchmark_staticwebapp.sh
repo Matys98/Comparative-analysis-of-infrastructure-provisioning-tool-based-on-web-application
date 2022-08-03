@@ -11,7 +11,7 @@ done
 
 APP_NAME="static"
 
-LOG_PATH=/home/matys/data_for_master_degree/ansible/$APP_NAME
+LOG_PATH=/home/matys/data_for_master_degree/fabric/$APP_NAME
 
 NEW_LOG_PATH=$LOG_PATH/$DEPLOYMENT/$SAMPLE_NUMBER
 
@@ -19,7 +19,7 @@ mkdir -p $NEW_LOG_PATH
 
 if [ $DEPLOYMENT = "single" ]; then
 # Deploy to Instance1 (Frontend)
-    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && ansible-playbook -i hosts static.yml --tags "StaticWebAppOneInstance" && stop=`date +%s.%N` && ./benchmark/finished.sh 
+    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && fab static-deploy-to-one-instance && stop=`date +%s.%N` && ./benchmark/finished.sh 
     runtime_s=$( echo "$stop - $start" | bc -l )
     runtime_m=$( echo "$runtime_s / 60" | bc -l )
     echo "Deploy statrted at $start_date | In seconds: $runtime_s | In minutes: $runtime_m" > $NEW_LOG_PATH/deploy_time.txt
@@ -27,7 +27,7 @@ fi
 
 if [ $DEPLOYMENT = "multi" ]; then
     # Deploy to All instances (Frontend)
-    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && ansible-playbook -i hosts static.yml --tags "StaticWebAppThreeInstance" && stop=`date +%s.%N` && ./benchmark/finished.sh
+    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && fab static-deploy-to-many-instances && stop=`date +%s.%N` && ./benchmark/finished.sh
     runtime_s=$( echo "$stop - $start" | bc -l )
     runtime_m=$( echo "$runtime_s / 60" | bc -l )
     echo "Deploy statrted at $start_date | In seconds: $runtime_s | In minutes: $runtime_m" > $NEW_LOG_PATH/deploy_time.txt

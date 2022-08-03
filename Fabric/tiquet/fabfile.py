@@ -1,6 +1,5 @@
 from fabric import Connection, task, Config, SerialGroup
 import getpass
-from tiquet_module import tiquet
 
 def instal_apps(c):
     c.run('sudo apt-get update')
@@ -128,7 +127,22 @@ def tiquet_deploy_to_one_instance(c):
    run_frontend(c, app_name)
 
 @task
-def tiquet_deploy_to_many_instance(c):
+def tiquet_deploy_to_many_instances(c):
+   hosts = [vm_host1, vm_host2, vm_host3]
+   print(" Deploy tiquet app to instance: " + str(hosts))
+   
+   for c in SerialGroup(hosts):
+        app_name = "tiquet"
+        instal_apps(c)
+        config_app(c)
+        config_db(c)
+        config_backend(c)
+        run_backend(c, app_name+ str(i))
+        config_frontend(c)
+        run_frontend(c, app_name+ str(i))
+
+@task
+def tiquet_deploy_split_instance(c):
    fronend_host = vm_host1
    backend_host = vm_host2
    db_host = vm_host3

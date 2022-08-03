@@ -11,7 +11,7 @@ done
 
 APP_NAME="grafana"
 
-LOG_PATH=/home/matys/data_for_master_degree/bash/$APP_NAME
+LOG_PATH=/home/matys/data_for_master_degree/ansible/$APP_NAME
 
 
 NEW_LOG_PATH=$LOG_PATH/$DEPLOYMENT/$SAMPLE_NUMBER

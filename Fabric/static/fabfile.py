@@ -67,13 +67,9 @@ def static_deploy_to_one_instance(ctx):
    app_name = 'web-app'
 
    instal_apps(ctx, c)
- 
    download_repo(ctx, c, repo_url)
-   
    config_node(ctx, c, repo_dir)
- 
    run_app(ctx, c, app_name)
-
    result = c.run('echo complite')
    print(result)
 

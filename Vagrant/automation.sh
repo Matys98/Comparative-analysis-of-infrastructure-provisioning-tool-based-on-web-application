@@ -1,15 +1,16 @@
 #!/bin/bash
 
 # Input values
-while getopts t:a: flag
+while getopts t:a:d: flag
 do
     case "${flag}" in
         t) TOOL=${OPTARG};;
         a) APP=${OPTARG};;
+        d) DEPLOYMENT=${OPTARG};;
     esac
 done
 
-DEPLOYMENT="multi"
+# DEPLOYMENT="multi"
 if [ $TOOL = "ansible" ]; then
   CD_PATH=../Ansible
 fi
@@ -26,13 +27,32 @@ if [ $TOOL = "bash" ]; then
   if [ $APP = "tiquet" ]; then CD_PATH=../Bash_Scripts/bash_deployment/tiquet; fi
 fi
 
-
 vagrant destroy -f
-vagrant up
 
-vagrant snapshot save Instance1 initial-setup1
-vagrant snapshot save Instance2 initial-setup2
-vagrant snapshot save Instance3 initial-setup3
+if [ $DEPLOYMENT = "single" ]; then
+  vagrant up Instance1
+  vagrant snapshot save Instance1 initial-setup1
+fi
+
+if [ $DEPLOYMENT = "multi" ]; then
+  vagrant up
+  vagrant snapshot save Instance1 initial-setup1
+  vagrant snapshot save Instance2 initial-setup2
+  vagrant snapshot save Instance3 initial-setup3
+fi
+
+if [ $DEPLOYMENT = "split" ] & [ $APP = "grafana" ]; then
+  vagrant snapshot save Instance1 initial-setup1
+  vagrant snapshot save Instance2 initial-setup2
+fi
+
+if [ $DEPLOYMENT = "split" ] & [ $APP = "tiquet" ]; then
+  vagrant up
+  vagrant snapshot save Instance1 initial-setup1
+  vagrant snapshot save Instance2 initial-setup2
+  vagrant snapshot save Instance3 initial-setup3
+fi
+
 
 ./reset_ssh.sh
 
@@ -52,9 +72,29 @@ do
     if [ $APP = "tiquet" ]; then ./benchmark_tiquet.sh -d $DEPLOYMENT -n $i; fi
     
     cd $CURRENT_PATH
-    vagrant snapshot restore Instance1 initial-setup1
-    vagrant snapshot restore Instance2 initial-setup2
-    vagrant snapshot restore Instance3 initial-setup3
+    
+    if [ $DEPLOYMENT = "single" ]; then
+      vagrant snapshot restore Instance1 initial-setup1
+    fi
+
+    if [ $DEPLOYMENT = "multi" ]; then
+      vagrant snapshot restore Instance1 initial-setup1
+      vagrant snapshot restore Instance2 initial-setup2
+      vagrant snapshot restore Instance3 initial-setup3
+    fi
+
+    if [ $DEPLOYMENT = "split" ] & [ $APP = "grafana" ]; then
+      vagrant snapshot restore Instance1 initial-setup1
+      vagrant snapshot restore Instance2 initial-setup2
+    fi
+
+    if [ $DEPLOYMENT = "split" ] & [ $APP = "tiquet" ]; then
+      vagrant snapshot restore Instance1 initial-setup1
+      vagrant snapshot restore Instance2 initial-setup2
+      vagrant snapshot restore Instance3 initial-setup3
+    fi
+
+    
 
     echo "----------------------"
     echo "---- End $i times ----"

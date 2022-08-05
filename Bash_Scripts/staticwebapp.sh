@@ -2,7 +2,7 @@
 #   All commands to deploy static web app
 
 # 0. Update packages
-sudo apt-get update
+#sudo apt-get update
 
 # 1. Install npm
 sudo apt-get install npm -y

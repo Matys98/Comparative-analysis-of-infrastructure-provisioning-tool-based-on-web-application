@@ -26,7 +26,7 @@ do
         echo "$i;$time_with_ms;$cpu_percentage;$mem_percentage;$mem_kibibytes" >> $LOG_PATH/ps-$LOG_NAME-$(date +%F).log
 
     if [ -f "$FILE" ]; then 
-        echo "Build Completed" >> $LOG_PATH/ps-$LOG_NAME-$(date +%F).log
+        echo "Build Completed" #>> $LOG_PATH/ps-$LOG_NAME-$(date +%F).log
         exit 0
     fi
 done

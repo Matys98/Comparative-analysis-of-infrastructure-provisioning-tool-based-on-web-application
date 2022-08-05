@@ -37,8 +37,3 @@
     global: yes
   become: yes
 
-- name: update apt
-  apt:
-    name: "*"
-    state: latest
-  become: yes

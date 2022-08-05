@@ -41,7 +41,7 @@ repo_name = ''
 repo_dir = ''
 app_name = ''
 
-vm_host1 = 'vagrant@192.168.56.22'
+vm_host1 = 'vagrant@192.168.56.21'
 vm_host2 = 'vagrant@192.168.56.22'
 vm_host3 = 'vagrant@192.168.56.23'
 
@@ -58,6 +58,8 @@ def get_password(connection):
 
 @task
 def grafana_deploy_to_one_instance(ctx):
+   c = Connection(host=vm_host1,
+              connect_kwargs={"key_filename": ssh_path})
    print(" Deploy solar panel app to instance: " + vm_host1)
    db_name = "inverter_power"
    instal_apps(ctx, c)

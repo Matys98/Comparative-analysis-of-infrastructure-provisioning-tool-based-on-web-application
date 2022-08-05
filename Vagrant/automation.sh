@@ -41,12 +41,14 @@ if [ $DEPLOYMENT = "multi" ]; then
   vagrant snapshot save Instance3 initial-setup3
 fi
 
-if [ $DEPLOYMENT = "split" ] & [ $APP = "grafana" ]; then
+if [ $DEPLOYMENT = "split" ] && [ $APP = "grafana" ]; then
+  vagrant up Instance1
+  vagrant up Instance2
   vagrant snapshot save Instance1 initial-setup1
   vagrant snapshot save Instance2 initial-setup2
 fi
 
-if [ $DEPLOYMENT = "split" ] & [ $APP = "tiquet" ]; then
+if [ $DEPLOYMENT = "split" ] && [ $APP = "tiquet" ]; then
   vagrant up
   vagrant snapshot save Instance1 initial-setup1
   vagrant snapshot save Instance2 initial-setup2
@@ -83,12 +85,12 @@ do
       vagrant snapshot restore Instance3 initial-setup3
     fi
 
-    if [ $DEPLOYMENT = "split" ] & [ $APP = "grafana" ]; then
+    if [ $DEPLOYMENT = "split" ] && [ $APP = "grafana" ]; then
       vagrant snapshot restore Instance1 initial-setup1
       vagrant snapshot restore Instance2 initial-setup2
     fi
 
-    if [ $DEPLOYMENT = "split" ] & [ $APP = "tiquet" ]; then
+    if [ $DEPLOYMENT = "split" ] && [ $APP = "tiquet" ]; then
       vagrant snapshot restore Instance1 initial-setup1
       vagrant snapshot restore Instance2 initial-setup2
       vagrant snapshot restore Instance3 initial-setup3

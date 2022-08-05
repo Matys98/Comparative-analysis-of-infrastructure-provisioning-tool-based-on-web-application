@@ -34,7 +34,7 @@ do
         echo "$i;$time_with_ms;$net_interface;$TBPS;$RBPS" >> $LOG_PATH/net-$LOG_NAME-$(date +%F).log
 
     if [ -f "$FILE" ];  then
-        echo "Build Completed" >> $LOG_PATH/net-$LOG_NAME-$(date +%F).log
+        echo "Build Completed" #>> $LOG_PATH/net-$LOG_NAME-$(date +%F).log
         exit 0
     fi
 done

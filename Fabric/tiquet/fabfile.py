@@ -2,10 +2,10 @@ from fabric import Connection, task, Config, SerialGroup
 import getpass
 
 def instal_apps(c):
-    c.run('sudo apt-get update')
+    #c.run('sudo apt-get update')
     c.run('sudo apt-get install curl -y')
     c.run('sudo apt install software-properties-common -y')
-    c.run('sudo apt-get update')
+    #c.run('sudo apt-get update')
 
 
 def config_app(c):
@@ -48,7 +48,7 @@ def config_frontend(c):
     c.run('sudo apt-get install nodejs -y')
     c.run('sudo apt-get install npm -y')
 
-    c.run('sudo apt-get install update')
+    #c.run('sudo apt-get install update')
 
     with c.cd('/home/$(whoami)/app/Tiquet/client'):
         c.run('npm install')
@@ -128,10 +128,14 @@ def tiquet_deploy_to_one_instance(c):
 
 @task
 def tiquet_deploy_to_many_instances(c):
+   vm_host1 = '192.168.56.21'
+   vm_host2 = '192.168.56.22'
+   vm_host3 = '192.168.56.23'
    hosts = [vm_host1, vm_host2, vm_host3]
    print(" Deploy tiquet app to instance: " + str(hosts))
    
-   for c in SerialGroup(hosts):
+   for c in SerialGroup(vm_host1, vm_host2, vm_host3, user="vagrant", 
+                        port=22, connect_kwargs={"key_filename": ssh_path}):
         app_name = "tiquet"
         instal_apps(c)
         config_app(c)

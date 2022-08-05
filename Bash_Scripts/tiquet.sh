@@ -16,7 +16,7 @@ done
 
 # 0. Update packages
 sudo apt-get install curl -y
-sudo apt-get update
+#sudo apt-get update
 sudo apt install software-properties-common -y
 
 # 1. Install git
@@ -79,7 +79,7 @@ if [ $FRONTEND ] || [ $ALL ]; then
 
     sudo apt-get install nodejs -y
     sudo apt-get install npm -y
-    sudo apt-get update
+    #sudo apt-get update
 
     cd /home/$(whoami)/app/Tiquet/client
 
@@ -111,7 +111,7 @@ if [ $BACKEND ] || [ $ALL ]; then
     # 0. Install Python
     if [ $BACKEND ]; then
         sudo apt-get install npm -y
-        sudo apt-get update
+        #sudo apt-get update
     fi
 
     sudo add-apt-repository ppa:deadsnakes/ppa -y

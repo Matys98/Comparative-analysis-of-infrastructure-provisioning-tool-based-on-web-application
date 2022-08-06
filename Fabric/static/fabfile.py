@@ -71,6 +71,7 @@ def static_deploy_to_one_instance(ctx):
    config_node(ctx, c, repo_dir)
    run_app(ctx, c, app_name)
    result = c.run('echo complite')
+   c.close()
    print(result)
 
 @task

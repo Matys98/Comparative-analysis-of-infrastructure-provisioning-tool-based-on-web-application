@@ -1,5 +1,12 @@
 ---
 # tasks file for tiquet-frontend/install
+- name: Install python-2
+  apt:
+    name: python2
+    update_cache: yes
+    force_apt_get: yes
+    force: yes
+  become: yes
 
 - name: Install npm
   apt:

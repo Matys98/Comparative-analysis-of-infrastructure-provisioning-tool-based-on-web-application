@@ -1,68 +1,56 @@
 from fabric import Connection, task, Config, SerialGroup
+import patchwork.transfers
 import getpass
 
-def instal_apps(c):
-    #c.run('sudo apt-get update')
+def install_apps(ctx, c):
     c.run('sudo apt-get install curl -y')
     c.run('sudo apt install software-properties-common -y')
-    #c.run('sudo apt-get update')
+    patchwork.transfers.rsync(c, './Tiquet', '/home/vagrant/')
+    print("END install apps")
 
-
-def config_app(c):
+def config_app(ctx, c):
     c.run('sudo apt-get install git -y')
-    c.run('mkdir app')
-    c.run('cd app')
+    c.run('mkdir /home/$(whoami)/app || echo "app exist"')
     with c.cd('/home/$(whoami)/app/'):
         c.run('git clone https://github.com/FLiotta/Tiquet.git')
 
-    c.run("sed -i 's/cffi==1.14.0/cffi==1.14.1/g' home/$(whoami)/app/Tiquet/server/requirements.txt")
+    c.run("sudo sed -i 's/cffi==1.14.0/cffi==1.14.1/g' /home/$(whoami)/app/Tiquet/server/requirements.txt")
+    print("END Config app")
 
-def config_db(c):
+def config_db(ctx, c):
     c.run('curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg')
     c.run('echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list')
     c.run('sudo apt-get install postgresql -y')
     c.run('sudo apt-get install postgresql-client-common -y')
     c.run('sudo apt-get install postgresql-client -y')
 
-    c.run('''
-        sudo bash -c "cat > /etc/postgresql/14/main/pg_hba.conf << EOF
-        # TYPE  DATABASE        USER            ADDRESS                 METHOD
-        local   all             all                                     trust
-        # IPv4 local connections:
-        host    all             all             127.0.0.1/32            trust
-        # IPv6 local connections:
-        host    all             all             ::1/128                 trust
-        # Allow replication connections from localhost, by a user with the
-        # replication privilege.
-        host    replication     all             127.0.0.1/32            trust
-        host    replication     all             ::1/128                 trust
-        local   all             all                                     trust
-        EOF
-        "
-    ''')
+    c.run('sudo cp /home/$(whoami)/Tiquet/pg_hba.conf /etc/postgresql/14/main/')
 
-    c.run('systemctl restart postgresql')
+    c.run('sudo systemctl restart postgresql')
     c.run('psql -U postgres -c "CREATE DATABASE tiquet"')
+    print("END DB Config")
 
-def config_frontend(c):
-    c.run('sudo apt-get install nodejs -y')
+def config_frontend(ctx, c):
     c.run('sudo apt-get install npm -y')
+    c.run('sudo apt install python2 -y')
 
-    #c.run('sudo apt-get install update')
-
+    c.run('sudo cp /home/$(whoami)/Tiquet/config.ts /home/$(whoami)/app/Tiquet/client/src/config.ts')
     with c.cd('/home/$(whoami)/app/Tiquet/client'):
-        c.run('npm install')
-        c.run('npm audit fix')
-        c.run('npm install serve -g')
-        c.run('npm install pm2 -g ')
+        c.run('sudo npm install')
+        c.run('sudo npm install serve -g')
+        c.run('sudo npm install save-dev webpack-cli -g')
+        c.run('sudo npm install pm2 -g ')
+    print("END Config Frontend")
 
 
-def run_frontend(c, app_name):
+def run_frontend(ctx, c, app_name):
     with c.cd('/home/$(whoami)/app/Tiquet/client'):
-        c.run('npm run bundle')
+        c.run('npm run bundle || echo "Succes"')
         c.run('pm2 start --name ' + app_name + '_frontend npm -- start')
+    print("END Run Frontend")
 
-def config_backend(c):
+def config_backend(ctx, c):
+    c.run('sudo apt install python2 -y')
     c.run('sudo add-apt-repository ppa:deadsnakes/ppa -y')
     c.run('sudo apt-get install python3.8 -y')
     c.run('sudo apt-get install python3-pip -y')
@@ -71,12 +59,17 @@ def config_backend(c):
     c.run('sudo apt install libpq-dev -y')
     c.run('sudo apt install libffi-dev -y')
 
+    c.run('sudo apt install npm -y')
+    c.run('sudo npm install pm2 -g')
+
     c.run('cd ./app/Tiquet/server')
     with c.cd('/home/$(whoami)/app/Tiquet/server'):
-        c.run('virtualenv env')
-        c.run('source env/bin/activate')
+        c.run('python3 -m virtualenv env || virtualenv env')
         c.run('echo requests==2.25.1 >> ./requirements.txt')
-        c.run('pip install -r ./requirements.txt')
+        c.run('''
+        source env/local/bin/activate || source env/bin/activate
+        cat ./requirements.txt | xargs -n 1 pip install || echo "Succes"
+        ''')
         c.run('''
                 sudo bash -c "cat > ./app/config.py << EOF
                 import os
@@ -88,12 +81,19 @@ def config_backend(c):
                 EOF
                 "
         ''')
+    print("END Config Backend")
 
-def run_backend(c, app_name):
+def run_backend(ctx, c, app_name):
     with c.cd('/home/$(whoami)/app/Tiquet/server'):
-        c.run('python3 create_tables.py')
-        c.run('pm2 start run.py --interpreter python3 --name '+ app_name + '_backend')
-        c.run('deactivate')
+        c.run('''
+        source env/local/bin/activate || source env/bin/activate
+        python3 create_tables.py || echo "Succes"
+        ''')
+        c.run('''
+        source env/local/bin/activate || source env/bin/activate
+        pm2 start run.py --interpreter python3 --name '+ app_name + '_backend
+        ''')
+    print("END Run Backend")
 
 repo_name = ''
 repo_dir = ''
@@ -115,38 +115,43 @@ def get_password(connection):
    connection.config = config
 
 @task
-def tiquet_deploy_to_one_instance(c):
+def tiquet_deploy_to_one_instance(ctx):
    print(" Deploy solar panel app to instance: " + vm_host1)
+   c = Connection(host=vm_host1,
+              connect_kwargs={"key_filename": ssh_path})
    app_name = "tiquet"
-   instal_apps(c)
-   config_app(c)
-   config_db(c)
-   config_backend(c)
-   run_backend(c, app_name)
-   config_frontend(c)
-   run_frontend(c, app_name)
+   install_apps(ctx, c)
+   config_app(ctx, c)
+   config_db(ctx, c)
+   config_frontend(ctx, c)
+   run_frontend(ctx, c, app_name)
+   config_backend(ctx, c)
+   run_backend(ctx, c, app_name)
+   c.close()
 
 @task
-def tiquet_deploy_to_many_instances(c):
+def tiquet_deploy_to_many_instances(ctx):
    vm_host1 = '192.168.56.21'
    vm_host2 = '192.168.56.22'
    vm_host3 = '192.168.56.23'
    hosts = [vm_host1, vm_host2, vm_host3]
    print(" Deploy tiquet app to instance: " + str(hosts))
-   
+   i = 0
    for c in SerialGroup(vm_host1, vm_host2, vm_host3, user="vagrant", 
                         port=22, connect_kwargs={"key_filename": ssh_path}):
         app_name = "tiquet"
-        instal_apps(c)
-        config_app(c)
-        config_db(c)
-        config_backend(c)
-        run_backend(c, app_name+ str(i))
-        config_frontend(c)
-        run_frontend(c, app_name+ str(i))
+        install_apps(ctx, c)
+        config_app(ctx, c)
+        config_db(ctx, c)
+        config_backend(ctx, c)
+        run_backend(ctx, c, app_name+ str(i))
+        config_frontend(ctx, c)
+        run_frontend(ctx, c, app_name+ str(i))
+        i=+1
+        c.close()
 
 @task
-def tiquet_deploy_split_instance(c):
+def tiquet_deploy_split_instance(ctx):
    fronend_host = vm_host1
    backend_host = vm_host2
    db_host = vm_host3
@@ -159,21 +164,24 @@ def tiquet_deploy_split_instance(c):
    # Connecting to Data base instance
    c = Connection(host=db_host,
        connect_kwargs={"key_filename": ssh_path})
-   instal_apps(c)
-   config_db(c)
+   install_apps(ctx, c)
+   config_db(ctx, c)
+   c.close()
 
    # Connecting to Backend instance
    c = Connection(host=backend_host,
        connect_kwargs={"key_filename": ssh_path})
-   instal_apps(c)
-   config_app(c)
-   config_backend(c)
-   run_backend(c, app_name)
+   install_apps(ctx, c)
+   config_app(ctx, c)
+   config_backend(ctx, c)
+   run_backend(ctx, c, app_name)
+   c.close()
 
    # Connecting to Frontend instance
    c = Connection(host=fronend_host,
        connect_kwargs={"key_filename": ssh_path})
-   instal_apps(c)
-   config_app(c)
-   config_frontend(c)
-   run_frontend(c, app_name)
+   install_apps(ctx, c)
+   config_app(ctx, c)
+   config_frontend(ctx, c)
+   run_frontend(ctx, c, app_name)
+   c.close()

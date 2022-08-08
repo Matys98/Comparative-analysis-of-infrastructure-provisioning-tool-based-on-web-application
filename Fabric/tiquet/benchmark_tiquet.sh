@@ -35,7 +35,7 @@ fi
 
 if [ $DEPLOYMENT = "multi" ]; then
     # Deploy to All instances (Frontend + Backend + DB)
-    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && fab tiquet-deploy-to-many-instance && stop=`date +%s.%N` && ./benchmark/finished.sh
+    ./benchmark/benchmark.sh -a $APP_NAME -t bash -p $NEW_LOG_PATH && start_date=`date +"%T.%3N"` && start=`date +%s.%N` && fab tiquet-deploy-to-many-instances && stop=`date +%s.%N` && ./benchmark/finished.sh
     runtime_s=$( echo "$stop - $start" | bc -l )
     runtime_m=$( echo "$runtime_s / 60" | bc -l )
     echo "Deploy statrted at $start_date | In seconds: $runtime_s | In minutes: $runtime_m" > $NEW_LOG_PATH/deploy_time.txt

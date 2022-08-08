@@ -143,10 +143,10 @@ def tiquet_deploy_to_many_instances(ctx):
         install_apps(ctx, c)
         config_app(ctx, c)
         config_db(ctx, c)
-        config_backend(ctx, c)
-        run_backend(ctx, c, app_name+ str(i))
         config_frontend(ctx, c)
         run_frontend(ctx, c, app_name+ str(i))
+        config_backend(ctx, c)
+        run_backend(ctx, c, app_name+ str(i))
         i=+1
         c.close()
 
